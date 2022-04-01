@@ -1,0 +1,12 @@
+<resources>
+  <string name="app_name">Groceriesh</string>
+  <string name="products">Products</string>
+  <string name="stores">Stores</string>
+  <string name="home">Home</string>
+  <string name="orders">Orders</string>
+  <string name="cart">Cart</string>
+  <string name="your_credit">Your credit</string>
+  <string name="profile">Profile</string>
+  <string name="my_location">My Location</string>
+  <string name="choose_delivery_address">Please choose your delivery address!</string>
+</resources>

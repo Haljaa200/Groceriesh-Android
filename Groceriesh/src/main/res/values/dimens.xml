@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <resources>
+
+  <dimen name="dmAppBarHeight">56dp</dimen>
+  <dimen name="fragmentPadding">10dp</dimen>
+
+  <dimen name="dm16Minus">-16dp</dimen>
+  <dimen name="dm1">1dp</dimen>
+  <dimen name="dm2">2dp</dimen>
+  <dimen name="dm3">3dp</dimen>
+  <dimen name="dm4">4dp</dimen>
+  <dimen name="dm6">6dp</dimen>
+  <dimen name="dm8">8dp</dimen>
+  <dimen name="dm10">10dp</dimen>
+  <dimen name="dm11">11dp</dimen>
+  <dimen name="dm12">12dp</dimen>
+  <dimen name="dm13">13dp</dimen>
+  <dimen name="dm14">14dp</dimen>
+  <dimen name="dm16">16dp</dimen>
+  <dimen name="dm17">17dp</dimen>
+  <dimen name="dm18">18dp</dimen>
+  <dimen name="dm20">20dp</dimen>
+  <dimen name="dm22">22dp</dimen>
+  <dimen name="dm24">24dp</dimen>
+  <dimen name="dm26">26dp</dimen>
+  <dimen name="dm30">30dp</dimen>
+  <dimen name="dm36">36dp</dimen>
+  <dimen name="dm40">40dp</dimen>
+  <dimen name="dm48">48dp</dimen>
+  <dimen name="dm60">60dp</dimen>
+  <dimen name="dm64">64dp</dimen>
+  <dimen name="dm80">80dp</dimen>
+  <dimen name="dm100">100dp</dimen>
+  <dimen name="dm120">120dp</dimen>
+  <dimen name="dm180">180dp</dimen>
+  <dimen name="dm250">250dp</dimen>
+
+  <dimen name="text12">12sp</dimen>
+  <dimen name="text13">13sp</dimen>
+  <dimen name="text14">14sp</dimen>
+  <dimen name="text15">15sp</dimen>
+  <dimen name="text18">18sp</dimen>
+  <dimen name="text28">28sp</dimen>
+  <dimen name="text30">30sp</dimen>
+  <dimen name="text32">32sp</dimen>
+  <dimen name="text34">34sp</dimen>
+
+</resources>

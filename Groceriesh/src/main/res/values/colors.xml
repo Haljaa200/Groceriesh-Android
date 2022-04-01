@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="controls">#f48c06</color>
+  <color name="controlsLight">#99F48C06</color>
+  <color name="background">#FFFFFF</color>
+  <color name="backgroundSecondary">#F3F3F3</color>
+  <color name="cardBackground">#370617</color>
+  <color name="cardBackgroundTitle">#FFFFFF</color>
+  <color name="cardBackgroundText">#C3CED7</color>
+  <color name="textColor">#333333</color>
+  <color name="textColorLow">#A8A8A8</color>
+  <color name="gray">#8E8E8E</color>
+  <color name="titleColorSecondary">#03071e</color>
+  <color name="titleColor">#370617</color>
+  <color name="backgroundAccent">#F4DEE5</color>
+  <color name="backgroundAccentSecondary">#F6EDF1</color>
+  <color name="mainColor">#f48c06</color>
+  <color name="mainColorLight">#66F48C06</color> <!--40% of main color-->
+  <color name="green">#49C193</color>
+  <color name="green2">#4CAF50</color>
+  <color name="blue">#506AF9</color>
+  <color name="brown">#CC7851</color>
+  <color name="blackLight">#66252525</color> <!--40% of black-->
+  <color name="onDark">#E5E5E5</color>
+  <color name="error">#FF5A5A</color>
+  <color name="purple_200">#FFBB86FC</color>
+  <color name="purple_500">#FF6200EE</color>
+  <color name="purple_700">#FF3700B3</color>
+  <color name="teal_200">#FF03DAC5</color>
+  <color name="teal_700">#FF018786</color>
+  <color name="black">#252525</color>
+  <color name="white">#FFFFFFFF</color>
+</resources>

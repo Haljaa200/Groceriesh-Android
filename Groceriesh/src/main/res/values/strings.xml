@@ -9,4 +9,9 @@
   <string name="profile">Profile</string>
   <string name="my_location">My Location</string>
   <string name="choose_delivery_address">Please choose your delivery address!</string>
+  <string name="login">Login</string>
+  <string name="email">Email</string>
+  <string name="password">Password</string>
+  <string name="register">Register</string>
+  <string name="please_login_to_your_account_to_continue">Please login to your account to continue.</string>
 </resources>

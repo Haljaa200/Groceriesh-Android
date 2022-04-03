@@ -7,7 +7,11 @@
   <fragment
     android:id="@+id/homeFragment"
     android:name="com.haljaa200.groceriesh.ui.fragments.HomeFragment"
-    android:label="HomeFragment" />
+    android:label="HomeFragment" >
+    <action
+      android:id="@+id/action_homeFragment_to_loginDialogFragment"
+      app:destination="@id/loginDialogFragment" />
+  </fragment>
 
   <fragment
     android:id="@+id/ordersFragment"
@@ -23,4 +27,9 @@
     android:id="@+id/profileFragment"
     android:name="com.haljaa200.groceriesh.ui.fragments.ProfileFragment"
     android:label="ProfileFragment" />
+
+  <dialog
+    android:id="@+id/loginDialogFragment"
+    android:name="com.haljaa200.groceriesh.ui.fragments.LoginDialogFragment"
+    android:label="LoginDialogFragment" />
 </navigation>

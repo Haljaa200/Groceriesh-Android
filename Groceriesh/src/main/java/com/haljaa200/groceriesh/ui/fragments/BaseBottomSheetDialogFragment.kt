@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import com.bumptech.glide.RequestManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.haljaa200.groceriesh.ui.MainActivity
@@ -31,5 +32,6 @@ open class BaseBottomSheetDialogFragment : BottomSheetDialogFragment() {
         bottomSheet.backgroundTintMode = PorterDuff.Mode.CLEAR
         bottomSheet.backgroundTintList = ColorStateList.valueOf(Color.TRANSPARENT)
         bottomSheet.setBackgroundColor(Color.TRANSPARENT)
+        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
 }

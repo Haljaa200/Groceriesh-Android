@@ -34,11 +34,11 @@
     android:label="LoginDialogFragment" >
     <action
       android:id="@+id/action_loginDialogFragment_to_registerDialogFragment"
-      app:destination="@id/registerDialogFragment" />
+      app:destination="@id/registerFragment" />
   </dialog>
 
-  <dialog
-    android:id="@+id/registerDialogFragment"
-    android:name="com.haljaa200.groceriesh.ui.fragments.RegisterDialogFragment"
-    android:label="RegisterDialogFragment" />
+  <fragment
+    android:id="@+id/registerFragment"
+    android:name="com.haljaa200.groceriesh.ui.fragments.RegisterFragment"
+    android:label="RegisterFragment" />
 </navigation>

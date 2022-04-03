@@ -20,4 +20,6 @@
   <string name="delivery_address">Delivery Address</string>
   <string name="choose_address_on_map">Choose Address on Map</string>
   <string name="back_to_login">Back to Login</string>
+  <string name="submit">Submit</string>
+  <string name="tap_to_change_location">Tap to change location</string>
 </resources>

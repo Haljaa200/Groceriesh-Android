@@ -6,24 +6,25 @@
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_layout_top_rounded"
+    android:background="@color/background"
     android:orientation="vertical">
 
-    <include layout="@layout/bottomsheet_top_line" />
-
+    <include
+      android:id="@+id/toolbar"
+      layout="@layout/toolbar"
+      app:title="@{@string/register}" />
 
       <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dm6">
+        android:layout_height="wrap_content">
 
         <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:divider="@drawable/shape_space_vertical"
           android:showDividers="middle"
-          android:padding="@dimen/fragmentPadding"
-          android:paddingTop="@dimen/dm12"
+          android:paddingTop="@dimen/dm10"
           android:paddingStart="@dimen/dm20"
           android:paddingEnd="@dimen/dm20"
           android:gravity="center"
@@ -82,17 +83,9 @@
             android:layout_height="wrap_content"
             android:hint="@string/delivery_address"
             android:maxLines="1"
-            android:inputType="textPostalAddress|textMultiLine" />
+            android:inputType="textPostalAddress" />
 
-          <androidx.appcompat.widget.AppCompatButton
-            style="@style/NormalBorderedButton"
-            android:id="@+id/btnChooseAddress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/choose_address_on_map"
-            android:textColor="@color/mainColor"
-            tools:ignore="RtlHardcoded" />
+          <include android:id="@+id/mapContainer" layout="@layout/choose_map_address" />
 
           <androidx.appcompat.widget.AppCompatButton
             style="@style/NormalButton"
@@ -101,19 +94,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dm6"
+            android:layout_marginBottom="@dimen/dm10"
             android:text="@string/register"
-            tools:ignore="RtlHardcoded" />
-
-          <androidx.appcompat.widget.AppCompatButton
-            style="@style/NormalBorderedRectangleButton"
-            android:id="@+id/btnBacktoLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dm14"
-            android:text="@string/back_to_login"
-            android:drawableStart="@drawable/ic_back"
-            app:drawableTint="@color/textColor"
             tools:ignore="RtlHardcoded" />
 
         </LinearLayout>

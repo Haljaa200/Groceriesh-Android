@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="300dp">
+
+  <org.osmdroid.views.MapView
+    android:id="@+id/map"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true" />
+
+  <ImageView
+    android:id="@+id/transparent_image"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:src="#00000000" />
+
+  <ImageView
+    android:id="@+id/ivLocation"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:src="@drawable/ic_location" />
+
+  <ImageView
+    style="@style/CircleButton"
+    android:id="@+id/ivMyLocation"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|end"
+    android:layout_margin="@dimen/dm10"
+    app:tint="@color/textColor"
+    android:src="@drawable/ic_my_location" />
+
+</FrameLayout>

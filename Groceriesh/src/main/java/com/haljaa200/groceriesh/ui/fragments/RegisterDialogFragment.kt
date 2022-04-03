@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.haljaa200.groceriesh.databinding.DialogLoginBinding
+import com.haljaa200.groceriesh.databinding.DialogRegisterBinding
 
-class LoginDialogFragment: BaseBottomSheetDialogFragment() {
-    private var _binding: DialogLoginBinding? = null
+class RegisterDialogFragment: BaseBottomSheetDialogFragment() {
+    private var _binding: DialogRegisterBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -16,12 +17,12 @@ class LoginDialogFragment: BaseBottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = DialogLoginBinding.inflate(inflater, container, false)
+        _binding = DialogRegisterBinding.inflate(inflater, container, false)
         val layout = binding.root
 
         dialog?.setCancelable(false)
+        binding.btnBacktoLogin.setOnClickListener { findNavController().navigateUp() }
 
-        binding.btnRegister.setOnClickListener { findNavController().navigate(LoginDialogFragmentDirections.actionLoginDialogFragmentToRegisterDialogFragment()) }
         return layout
     }
 

@@ -14,4 +14,10 @@
   <string name="password">Password</string>
   <string name="register">Register</string>
   <string name="please_login_to_your_account_to_continue">Please login to your account to continue.</string>
+  <string name="first_name">First Name</string>
+  <string name="last_name">Last Name</string>
+  <string name="phone_number">Phone Number</string>
+  <string name="delivery_address">Delivery Address</string>
+  <string name="choose_address_on_map">Choose Address on Map</string>
+  <string name="back_to_login">Back to Login</string>
 </resources>

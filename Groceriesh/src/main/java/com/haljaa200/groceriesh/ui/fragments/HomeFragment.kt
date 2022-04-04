@@ -1,13 +1,13 @@
 package com.haljaa200.groceriesh.ui.fragments
 
 import android.os.Bundle
-import android.provider.SyncStateContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.haljaa200.groceriesh.databinding.FragmentHomeBinding
 import com.haljaa200.groceriesh.util.Constants
+import com.haljaa200.groceriesh.util.Vlog
 
 class HomeFragment: BaseFragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -21,8 +21,11 @@ class HomeFragment: BaseFragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val layout = binding.root
 
-        if (viewModel.getBoolean(Constants.LOGGED_IN)) showData()
-        else showLogin()
+        viewModel.loggedIn.observe(viewLifecycleOwner) {
+            Vlog.i("loggedIn", it.toString())
+            if (it) showData()
+            else showLogin()
+        }
 
         return layout
     }
@@ -32,7 +35,7 @@ class HomeFragment: BaseFragment() {
     }
 
     private fun showData() {
-        //TODO("Not yet implemented")
+        binding.tvAddress.text = viewModel.getString(Constants.USER_DELIVERY_ADDRESS)
     }
 
     override fun onDestroyView() {

@@ -11,9 +11,13 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.gms.maps.model.LatLng
+import com.haljaa200.groceriesh.R
 import com.haljaa200.groceriesh.databinding.FragmentRegisterBinding
+import com.haljaa200.groceriesh.util.Tools
 import org.osmdroid.api.IMapController
 import org.osmdroid.config.Configuration
 import org.osmdroid.library.BuildConfig
@@ -25,6 +29,7 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 class RegisterFragment: BaseFragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
+    private var latLng: LatLng? = null
 
     companion object {
         private const val REQUEST_LOCATION_CODE = 1
@@ -122,6 +127,59 @@ class RegisterFragment: BaseFragment() {
     override fun onPause() {
         super.onPause()
         binding.mapContainer.map.onPause()
+    }
+
+    private fun isDataValid(): Boolean {
+        return when {
+            binding.etFirstName.text.isEmpty() -> {
+                Toast.makeText(requireContext(), getString(R.string.enter_name), Toast.LENGTH_SHORT).show()
+                Tools.shakeView(binding.etFirstName)
+                false
+            }
+            binding.etLastName.text.isEmpty() -> {
+                Toast.makeText(requireContext(), getString(R.string.enter_last_name), Toast.LENGTH_SHORT).show()
+                Tools.shakeView(binding.etLastName)
+                false
+            }
+            binding.etEmail.text.isEmpty() -> {
+                Toast.makeText(requireContext(), getString(R.string.enter_email), Toast.LENGTH_SHORT).show()
+                Tools.shakeView(binding.etEmail)
+                false
+            }
+            !Tools.isEmailValid(binding.etEmail.text.toString()) -> {
+                Toast.makeText(requireContext(), getString(R.string.email_not_valid), Toast.LENGTH_SHORT).show()
+                Tools.shakeView(binding.etEmail)
+                false
+            }
+            binding.etPhone.text.isEmpty() -> {
+                Toast.makeText(requireContext(), getString(R.string.enter_phone), Toast.LENGTH_SHORT).show()
+                Tools.shakeView(binding.etPhone)
+                false
+            }
+            binding.etPassword.text.isEmpty() -> {
+                Toast.makeText(requireContext(), getString(R.string.enter_password), Toast.LENGTH_SHORT).show()
+                Tools.shakeView(binding.etPassword)
+                false
+            }
+            binding.etPasswordConfirm.text.isEmpty() -> {
+                Toast.makeText(requireContext(), getString(R.string.enter_password_confirm), Toast.LENGTH_SHORT).show()
+                Tools.shakeView(binding.etPasswordConfirm)
+                false
+            }
+            binding.etPassword.text.toString() != binding.etPasswordConfirm.text.toString() -> {
+                Toast.makeText(requireContext(), getString(R.string.password_and_confirm_not_same), Toast.LENGTH_SHORT).show()
+                Tools.shakeView(binding.etPassword)
+                Tools.shakeView(binding.etPasswordConfirm)
+                false
+            }
+            latLng == null -> {
+                Toast.makeText(requireContext(), getString(R.string.choose_delivery_address), Toast.LENGTH_SHORT).show()
+                Tools.shakeView(binding.mapContainer.ivLocation)
+                false
+            }
+
+            else -> true
+        }
     }
 
     override fun onDestroyView() {

@@ -22,4 +22,17 @@
   <string name="back_to_login">Back to Login</string>
   <string name="submit">Submit</string>
   <string name="tap_to_change_location">Tap to change location</string>
+  <string name="confirm_password">Confirm Password</string>
+  <string name="password_and_confirm_not_same">Password and Confirm Password must be same!</string>
+  <string name="enter_password_confirm">Please Enter Confirm Password.</string>
+  <string name="enter_password">Please enter Password.</string>
+  <string name="enter_phone">Please enter Phone.</string>
+  <string name="email_not_valid">Please enter a valid Email.</string>
+  <string name="enter_email">Please enter your Email.</string>
+  <string name="enter_name">Please enter your First Name.</string>
+  <string name="enter_last_name">Please enter your Last Name.</string>
+  <string name="no_internet">Device is NOT connected to Internet!</string>
+  <string name="check_your_internet">Please check your Internet connection!</string>
+  <string name="connectionError">An error occured, Please try again!</string>
+  <string name="welcome_to_groceriesh">Welceome to Groceriesh!</string>
 </resources>

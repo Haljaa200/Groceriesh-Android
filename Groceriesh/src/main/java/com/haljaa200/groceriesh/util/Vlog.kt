@@ -1,4 +1,4 @@
-package com.milad.unihi.util
+package com.haljaa200.groceriesh.util
 
 import android.util.Log
 import java.lang.StringBuilder

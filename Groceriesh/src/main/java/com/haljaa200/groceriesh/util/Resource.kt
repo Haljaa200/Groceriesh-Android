@@ -1,4 +1,4 @@
-package com.milad.unihi.util
+package com.haljaa200.groceriesh.util
 
 sealed class Resource<T>(
     val data: T? = null,

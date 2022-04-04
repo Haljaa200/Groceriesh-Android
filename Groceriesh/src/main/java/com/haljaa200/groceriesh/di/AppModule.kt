@@ -15,6 +15,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Singleton
 
 @Module
@@ -45,9 +46,9 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(client: OkHttpClient)
-        = Retrofit.Builder()
+    fun provideRetrofit(client: OkHttpClient): Retrofit = Retrofit.Builder()
             .baseUrl(SITE_URL)
+            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

@@ -1,5 +1,6 @@
 package com.haljaa200.groceriesh.util
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.res.ColorStateList
@@ -8,6 +9,7 @@ import android.util.DisplayMetrics
 import android.util.Patterns
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.res.ResourcesCompat
@@ -17,7 +19,6 @@ import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 import androidx.fragment.app.FragmentActivity
 import com.haljaa200.groceriesh.R
-import com.milad.unihi.util.Resource
 import retrofit2.Response
 import java.text.NumberFormat
 import java.util.*
@@ -149,5 +150,20 @@ object Tools {
         val metrics = resources.displayMetrics
         return dp * (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
     }
+
+    fun loadingDialog(context: Context, cancelable: Boolean = false): Dialog {
+        val dialog = Dialog(context)
+        dialog.window!!.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window!!.requestFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_loading)
+        val params = dialog.window!!.attributes
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT
+        dialog.window!!.attributes = params
+        dialog.setCancelable(cancelable)
+
+        return dialog
+    }
+
 
 }

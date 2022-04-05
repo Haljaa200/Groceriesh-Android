@@ -1,9 +1,6 @@
 package com.haljaa200.groceriesh.api
 
-import com.haljaa200.groceriesh.models.Login
-import com.haljaa200.groceriesh.models.LoginResponse
-import com.haljaa200.groceriesh.models.Register
-import com.haljaa200.groceriesh.models.RegisterResponse
+import com.haljaa200.groceriesh.models.*
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -16,4 +13,7 @@ interface GrocerieshAPI {
 
     @PUT("customer/profile")
     suspend fun editProfile(@Header("x-auth-token") token: String, @Body data: Register): Response<RegisterResponse>
+
+    @GET("customer/categories")
+    suspend fun getCategories(@Header("x-auth-token") token: String): Response<Categories>
 }

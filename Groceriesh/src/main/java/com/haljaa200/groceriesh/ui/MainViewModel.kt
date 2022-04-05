@@ -26,7 +26,7 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
 
     protected val context get() = getApplication<Application>()
 
-    fun removePref(key: String) = sharedPreferences.edit().remove(key).apply()
+    private fun removePref(key: String) = sharedPreferences.edit().remove(key).apply()
     fun saveString(key: String, value: String) = sharedPreferences.edit().putString(key, value).apply()
     fun saveBoolean(key: String, value: Boolean) = sharedPreferences.edit().putBoolean(key, value).apply()
     fun getString(key: String) =  sharedPreferences.getString(key, "").toString()
@@ -66,6 +66,7 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
     val loginResponse: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
     val registerResponse: MutableLiveData<Resource<RegisterResponse>> = MutableLiveData()
     val editProfileResponse: MutableLiveData<Resource<RegisterResponse>> = MutableLiveData()
+    val categoriesResponse: MutableLiveData<Resource<Categories>> = MutableLiveData()
 
     fun login(loginData: Login) = viewModelScope.launch {
         loginResponse.postValue(Resource.Loading())
@@ -117,6 +118,25 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
             when(t) {
                 is IOException -> editProfileResponse.postValue(Resource.Error(context.getString(R.string.check_your_internet)))
                 else -> editProfileResponse.postValue(Resource.Error(context.getString(R.string.connectionError)))
+            }
+        }
+    }
+
+    fun getCategories() = viewModelScope.launch {
+        categoriesResponse.postValue(Resource.Loading())
+
+        try {
+            if(hasInternetConnection()) {
+                val response = RetrofitInstance(retrofit).api.getCategories(token)
+                categoriesResponse.postValue(handleRetrofitResponse(response))
+                Vlog.i(response.toString())
+            } else {
+                categoriesResponse.postValue(Resource.Error(context.getString(R.string.no_internet)))
+            }
+        } catch(t: Throwable) {
+            when(t) {
+                is IOException -> categoriesResponse.postValue(Resource.Error(context.getString(R.string.check_your_internet)))
+                else -> categoriesResponse.postValue(Resource.Error(context.getString(R.string.connectionError)))
             }
         }
     }

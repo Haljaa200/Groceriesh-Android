@@ -12,6 +12,14 @@
     android:clickable="true"
     android:focusable="true" />
 
+  <TextView
+    style="@style/RegularText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dm8"
+    android:text="@string/move_map_to_choose_your_location"
+    android:background="@color/mainColorLight" />
+
   <ImageView
     android:id="@+id/transparent_image"
     android:layout_width="match_parent"

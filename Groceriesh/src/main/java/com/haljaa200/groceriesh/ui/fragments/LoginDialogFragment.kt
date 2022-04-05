@@ -17,7 +17,6 @@ import com.haljaa200.groceriesh.util.Vlog
 class LoginDialogFragment: BaseBottomSheetDialogFragment() {
     private var _binding: DialogLoginBinding? = null
     private val binding get() = _binding!!
-    private lateinit var loading: Dialog
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,7 +27,6 @@ class LoginDialogFragment: BaseBottomSheetDialogFragment() {
         val layout = binding.root
 
         dialog?.setCancelable(false)
-        loading = Tools.loadingDialog(requireContext())
 
         binding.btnRegister.setOnClickListener { findNavController().navigate(LoginDialogFragmentDirections.actionLoginDialogFragmentToRegisterDialogFragment()) }
         binding.btnLogin.setOnClickListener {
@@ -36,7 +34,7 @@ class LoginDialogFragment: BaseBottomSheetDialogFragment() {
         }
 
         viewModel.loggedIn.observe(viewLifecycleOwner) {
-            if (!it) findNavController().navigateUp()
+            if (it) findNavController().navigateUp()
         }
 
         return layout

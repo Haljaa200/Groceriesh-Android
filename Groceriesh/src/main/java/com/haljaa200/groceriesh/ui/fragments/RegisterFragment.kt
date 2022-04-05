@@ -14,10 +14,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.android.gms.maps.model.LatLng
+import androidx.navigation.fragment.findNavController
 import com.haljaa200.groceriesh.R
 import com.haljaa200.groceriesh.databinding.FragmentRegisterBinding
+import com.haljaa200.groceriesh.models.Register
+import com.haljaa200.groceriesh.util.Resource
 import com.haljaa200.groceriesh.util.Tools
+import com.haljaa200.groceriesh.util.Vlog
 import org.osmdroid.api.IMapController
 import org.osmdroid.config.Configuration
 import org.osmdroid.library.BuildConfig
@@ -29,7 +32,6 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 class RegisterFragment: BaseFragment() {
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
-    private var latLng: LatLng? = null
 
     companion object {
         private const val REQUEST_LOCATION_CODE = 1
@@ -45,8 +47,56 @@ class RegisterFragment: BaseFragment() {
         setupToolbar(binding.toolbar, true)
 
         showMap()
+        binding.btnRegister.setOnClickListener {
+            if (isDataValid()) register()
+        }
 
         return layout
+    }
+
+    private fun register() {
+        val registerData = Register(
+            binding.etAddress.text.toString(),
+            binding.etEmail.text.toString(),
+            binding.etFirstName.text.toString(),
+            binding.etLastName.text.toString(),
+            binding.mapContainer.map.mapCenter.latitude,
+            binding.mapContainer.map.mapCenter.longitude,
+            binding.etPassword.text.toString(),
+            binding.etPhone.text.toString()
+        )
+
+        viewModel.register(registerData)
+        viewModel.registerResponse.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    loading.dismiss()
+                    response.data?.let {
+                        if (it.success) {
+                            viewModel.saveUserData(it.data.customer!!, it.data.token)
+                            findNavController().navigateUp()
+                            viewModel.loggedIn.postValue(true)
+                        } else {
+                            Toast.makeText(requireContext(), it.data.message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+
+                is Resource.Error -> {
+                    loading.dismiss()
+
+                    response.message?.let { message: String ->
+                        Vlog.e(message)
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                is Resource.Loading -> {
+                    Vlog.i("Loading...")
+                    loading.show()
+                }
+            }
+        }
     }
 
     private fun showMap() {
@@ -59,9 +109,9 @@ class RegisterFragment: BaseFragment() {
         binding.mapContainer.map.setMultiTouchControls(true)
         val mapController: IMapController = binding.mapContainer.map.controller
         mapController.setZoom(19)
-        val startPoint = GeoPoint(55.8668183,-4.2499602)
-
-        mapController.setCenter(startPoint)
+        val defaultPoint = GeoPoint(55.8668183,-4.2499602)
+        mapController.setCenter(defaultPoint)
+        initMyLocation()
 
         binding.mapContainer.ivMyLocation.setOnClickListener { initMyLocation() }
 
@@ -170,11 +220,6 @@ class RegisterFragment: BaseFragment() {
                 Toast.makeText(requireContext(), getString(R.string.password_and_confirm_not_same), Toast.LENGTH_SHORT).show()
                 Tools.shakeView(binding.etPassword)
                 Tools.shakeView(binding.etPasswordConfirm)
-                false
-            }
-            latLng == null -> {
-                Toast.makeText(requireContext(), getString(R.string.choose_delivery_address), Toast.LENGTH_SHORT).show()
-                Tools.shakeView(binding.mapContainer.ivLocation)
                 false
             }
 

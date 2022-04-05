@@ -18,8 +18,6 @@
       android:showDividers="middle"
       android:padding="@dimen/fragmentPadding"
       android:layout_marginTop="@dimen/dm6"
-      android:layout_marginStart="@dimen/dm20"
-      android:layout_marginEnd="@dimen/dm20"
       android:gravity="center"
       android:orientation="vertical">
 
@@ -39,6 +37,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/email"
         android:maxLines="1"
+        android:layout_marginStart="@dimen/dm20"
+        android:layout_marginEnd="@dimen/dm20"
         android:inputType="textEmailAddress" />
 
       <EditText
@@ -48,6 +48,8 @@
         android:layout_height="wrap_content"
         android:hint="@string/password"
         android:maxLines="1"
+        android:layout_marginStart="@dimen/dm20"
+        android:layout_marginEnd="@dimen/dm20"
         android:inputType="textPassword" />
 
       <androidx.appcompat.widget.AppCompatButton
@@ -57,6 +59,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dm6"
+        android:layout_marginStart="@dimen/dm20"
+        android:layout_marginEnd="@dimen/dm20"
         android:text="@string/login"
         tools:ignore="RtlHardcoded" />
 
@@ -68,6 +72,8 @@
         android:layout_gravity="center"
         android:text="@string/register"
         android:textColor="@color/mainColor"
+        android:layout_marginStart="@dimen/dm20"
+        android:layout_marginEnd="@dimen/dm20"
         tools:ignore="RtlHardcoded" />
 
     </LinearLayout>

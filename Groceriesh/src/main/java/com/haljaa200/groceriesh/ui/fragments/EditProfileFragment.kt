@@ -16,8 +16,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.haljaa200.groceriesh.R
-import com.haljaa200.groceriesh.databinding.FragmentRegisterBinding
+import com.haljaa200.groceriesh.databinding.FragmentEditProfileBinding
 import com.haljaa200.groceriesh.models.Register
+import com.haljaa200.groceriesh.util.Constants
 import com.haljaa200.groceriesh.util.Resource
 import com.haljaa200.groceriesh.util.Tools
 import com.haljaa200.groceriesh.util.Vlog
@@ -29,8 +30,8 @@ import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay
 
-class RegisterFragment: BaseFragment() {
-    private var _binding: FragmentRegisterBinding? = null
+class EditProfileFragment: BaseFragment() {
+    private var _binding: FragmentEditProfileBinding? = null
     private val binding get() = _binding!!
 
     companion object {
@@ -42,22 +43,33 @@ class RegisterFragment: BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        _binding = FragmentEditProfileBinding.inflate(inflater, container, false)
         val layout = binding.root
         setupToolbar(binding.toolbar, true)
 
+        fillData()
         showMap()
         binding.btnRegister.setOnClickListener {
-            if (isDataValid()) register()
+            if (isDataValid()) editProfile()
         }
 
         return layout
     }
 
-    private fun register() {
-        val registerData = Register(
+    private fun fillData() {
+        binding.etAddress.setText(viewModel.getString(Constants.USER_DELIVERY_ADDRESS))
+        binding.etEmail.setText(viewModel.getString(Constants.USER_EMAIL))
+        binding.etFirstName.setText(viewModel.getString(Constants.USER_FIRST_NAME))
+        binding.etLastName.setText(viewModel.getString(Constants.USER_LAST_NAME))
+        binding.etPassword.setText(viewModel.getString(Constants.USER_PASSWORD))
+        binding.etPasswordConfirm.setText(viewModel.getString(Constants.USER_PASSWORD))
+        binding.etPhone.setText(viewModel.getString(Constants.USER_PHONE))
+    }
+
+    private fun editProfile() {
+        val userData = Register(
             binding.etAddress.text.toString(),
-            binding.etEmail.text.toString(),
+            viewModel.getString(Constants.USER_EMAIL),
             binding.etFirstName.text.toString(),
             binding.etLastName.text.toString(),
             binding.mapContainer.map.mapCenter.latitude,
@@ -66,14 +78,14 @@ class RegisterFragment: BaseFragment() {
             binding.etPhone.text.toString()
         )
 
-        viewModel.register(registerData)
-        viewModel.registerResponse.observe(viewLifecycleOwner) { response ->
+        viewModel.editProfile(userData)
+        viewModel.editProfileResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                     loading.dismiss()
                     response.data?.let {
                         if (it.success) {
-                            viewModel.saveUserData(it.data.customer!!, it.data.token, binding.etPassword.text.toString())
+                            viewModel.saveUserData(it.data.customer!!, viewModel.token, binding.etPassword.text.toString())
                             findNavController().navigateUp()
                         } else {
                             Toast.makeText(requireContext(), it.data.message, Toast.LENGTH_SHORT).show()
@@ -108,9 +120,8 @@ class RegisterFragment: BaseFragment() {
         binding.mapContainer.map.setMultiTouchControls(true)
         val mapController: IMapController = binding.mapContainer.map.controller
         mapController.setZoom(19)
-        val defaultPoint = GeoPoint(55.8668183,-4.2499602)
+        val defaultPoint = GeoPoint(viewModel.getString(Constants.USER_LATITUDE).toDouble(),viewModel.getString(Constants.USER_LONGITUDE).toDouble())
         mapController.setCenter(defaultPoint)
-        initMyLocation()
 
         binding.mapContainer.ivMyLocation.setOnClickListener { initMyLocation() }
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.haljaa200.groceriesh.R
 import com.haljaa200.groceriesh.databinding.DialogLoginBinding
@@ -67,7 +68,7 @@ class LoginDialogFragment: BaseBottomSheetDialogFragment() {
                     loading.dismiss()
                     response.data?.let {
                         if (it.success) {
-                            viewModel.saveUserData(it.data.customer!!, it.data.token)
+                            viewModel.saveUserData(it.data.customer!!, it.data.token, binding.etPassword.text.toString())
                             findNavController().navigateUp()
                         } else {
                             Toast.makeText(requireContext(), it.data.message, Toast.LENGTH_SHORT).show()

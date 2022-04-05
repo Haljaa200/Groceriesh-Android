@@ -13,4 +13,7 @@ interface GrocerieshAPI {
 
     @POST("customer/login")
     suspend fun login(@Body data: Login): Response<LoginResponse>
+
+    @PUT("customer/profile")
+    suspend fun editProfile(@Header("x-auth-token") token: String, @Body data: Register): Response<RegisterResponse>
 }

@@ -31,7 +31,7 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
     fun saveBoolean(key: String, value: Boolean) = sharedPreferences.edit().putBoolean(key, value).apply()
     fun getString(key: String) =  sharedPreferences.getString(key, "").toString()
     fun getBoolean(key: String) = sharedPreferences.getBoolean(key, false)
-    fun saveUserData(customer: Customer, token: String) {
+    fun saveUserData(customer: Customer, token: String, password: String) {
         saveBoolean(Constants.LOGGED_IN, true)
         saveString(Constants.USER_FIRST_NAME, customer.first_name)
         saveString(Constants.USER_LAST_NAME, customer.last_name)
@@ -41,6 +41,7 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
         saveString(Constants.USER_DELIVERY_ADDRESS, customer.delivery_address)
         saveString(Constants.USER_LATITUDE, customer.latitude.toString())
         saveString(Constants.USER_LONGITUDE, customer.longitude.toString())
+        saveString(Constants.USER_PASSWORD, password)
         saveString(Constants.USER_TOKEN, token)
 
         loggedIn.postValue(true)
@@ -55,6 +56,7 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
         removePref(Constants.USER_DELIVERY_ADDRESS)
         removePref(Constants.USER_LATITUDE)
         removePref(Constants.USER_LONGITUDE)
+        removePref(Constants.USER_PASSWORD)
         removePref(Constants.USER_TOKEN)
 
         loggedIn.postValue(false)
@@ -63,6 +65,7 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
     val loggedIn = MutableLiveData(getBoolean(Constants.LOGGED_IN))
     val loginResponse: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
     val registerResponse: MutableLiveData<Resource<RegisterResponse>> = MutableLiveData()
+    val editProfileResponse: MutableLiveData<Resource<RegisterResponse>> = MutableLiveData()
 
     fun login(loginData: Login) = viewModelScope.launch {
         loginResponse.postValue(Resource.Loading())
@@ -100,9 +103,28 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
         }
     }
 
+    fun editProfile(registerData: Register) = viewModelScope.launch {
+        editProfileResponse.postValue(Resource.Loading())
+
+        try {
+            if(hasInternetConnection()) {
+                val response = RetrofitInstance(retrofit).api.editProfile(token, registerData)
+                editProfileResponse.postValue(handleRetrofitResponse(response))
+            } else {
+                editProfileResponse.postValue(Resource.Error(context.getString(R.string.no_internet)))
+            }
+        } catch(t: Throwable) {
+            when(t) {
+                is IOException -> editProfileResponse.postValue(Resource.Error(context.getString(R.string.check_your_internet)))
+                else -> editProfileResponse.postValue(Resource.Error(context.getString(R.string.connectionError)))
+            }
+        }
+    }
+
     private fun hasInternetConnection(): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo!!.isConnected
     }
 
+    val token = getString(Constants.USER_TOKEN)
 }

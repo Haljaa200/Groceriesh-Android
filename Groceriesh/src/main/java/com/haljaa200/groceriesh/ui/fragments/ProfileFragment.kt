@@ -45,7 +45,7 @@ class ProfileFragment: BaseFragment() {
         binding.tvPhone.text = viewModel.getString(Constants.USER_PHONE)
 
         binding.ivEditProfile.setOnClickListener {
-
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment())
         }
 
         binding.ivOrders.setOnClickListener {

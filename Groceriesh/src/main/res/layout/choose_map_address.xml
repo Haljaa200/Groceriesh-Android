@@ -28,8 +28,8 @@
 
   <ImageView
     android:id="@+id/ivLocation"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="@dimen/dm48"
+    android:layout_height="@dimen/dm48"
     android:layout_gravity="center"
     android:src="@drawable/ic_location" />
 

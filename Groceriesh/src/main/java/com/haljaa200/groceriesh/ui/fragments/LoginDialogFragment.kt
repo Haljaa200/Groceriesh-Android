@@ -68,7 +68,6 @@ class LoginDialogFragment: BaseBottomSheetDialogFragment() {
                     response.data?.let {
                         if (it.success) {
                             viewModel.saveUserData(it.data.customer!!, it.data.token)
-                            viewModel.loggedIn.postValue(true)
                             findNavController().navigateUp()
                         } else {
                             Toast.makeText(requireContext(), it.data.message, Toast.LENGTH_SHORT).show()

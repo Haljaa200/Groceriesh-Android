@@ -24,6 +24,7 @@
   <color name="blackLight">#66252525</color> <!--40% of black-->
   <color name="onDark">#E5E5E5</color>
   <color name="error">#FF5A5A</color>
+  <color name="errorLight">#40FF5A5A</color>
   <color name="purple_200">#FFBB86FC</color>
   <color name="purple_500">#FF6200EE</color>
   <color name="purple_700">#FF3700B3</color>

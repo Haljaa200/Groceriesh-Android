@@ -36,4 +36,11 @@
   <string name="connectionError">An error occured, Please try again!</string>
   <string name="welcome_to_groceriesh">Welceome to Groceriesh!</string>
   <string name="move_map_to_choose_your_location">Move Map to choose your location.</string>
+  <string name="edit_profile">Edit Profile</string>
+  <string name="increase_credit">Increase Credit</string>
+  <string name="logout">Logout</string>
+  <string name="credit_0">Credit: 0£</string>
+  <string name="logout_prompt">Are you sure to Logout?</string>
+  <string name="yes">Yes</string>
+  <string name="cancel">Cancel</string>
 </resources>

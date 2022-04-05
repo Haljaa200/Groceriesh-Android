@@ -75,7 +75,6 @@ class RegisterFragment: BaseFragment() {
                         if (it.success) {
                             viewModel.saveUserData(it.data.customer!!, it.data.token)
                             findNavController().navigateUp()
-                            viewModel.loggedIn.postValue(true)
                         } else {
                             Toast.makeText(requireContext(), it.data.message, Toast.LENGTH_SHORT).show()
                         }

@@ -1,14 +1,235 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools">
 
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:padding="@dimen/fragmentPadding"
+
     android:orientation="vertical">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:background="@color/mainColor"
+      android:padding="@dimen/fragmentPadding">
+
+      <TextView
+        style="@style/HeaderText"
+        android:id="@+id/tvFullName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Full Name" />
+
+      <TextView
+        style="@style/RegularText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="@string/credit_0" />
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:divider="@drawable/shape_space_horizental"
+      android:padding="@dimen/fragmentPadding"
+      android:layout_marginTop="@dimen/dm6"
+      android:layout_marginBottom="@dimen/dm6"
+      android:showDividers="middle"
+      android:orientation="horizontal"
+      android:baselineAligned="false">
+
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:divider="@drawable/shape_space_vertical"
+        android:showDividers="middle"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+          style="@style/CircleButton"
+          android:id="@+id/ivEditProfile"
+          android:layout_width="@dimen/dm48"
+          android:layout_height="@dimen/dm48"
+          android:src="@drawable/ic_edit"
+          app:tint="@color/textColor"
+          android:contentDescription="@string/edit_profile" />
+
+        <TextView
+          style="@style/LittleText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:text="@string/edit_profile" />
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:divider="@drawable/shape_space_vertical"
+        android:showDividers="middle"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+          style="@style/CircleButton"
+          android:id="@+id/ivOrders"
+          android:layout_width="@dimen/dm48"
+          android:layout_height="48dp"
+          android:src="@drawable/ic_orders"
+          app:tint="@color/textColor"
+          android:contentDescription="@string/orders" />
+
+        <TextView
+          style="@style/LittleText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:text="@string/orders" />
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:divider="@drawable/shape_space_vertical"
+        android:showDividers="middle"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+          style="@style/CircleButton"
+          android:id="@+id/ivPayment"
+          android:layout_width="@dimen/dm48"
+          android:layout_height="@dimen/dm48"
+          android:src="@drawable/ic_payment"
+          app:tint="@color/textColor"
+          android:contentDescription="@string/increase_credit" />
+
+        <TextView
+          style="@style/LittleText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:text="@string/increase_credit" />
+      </LinearLayout>
+
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:divider="@drawable/shape_space_vertical"
+        android:showDividers="middle"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+          style="@style/CircleButton"
+          android:id="@+id/ivLogout"
+          android:layout_width="@dimen/dm48"
+          android:layout_height="@dimen/dm48"
+          android:src="@drawable/ic_logout"
+          android:backgroundTint="@color/errorLight"
+          app:tint="@color/textColor"
+          android:contentDescription="@string/logout" />
+
+        <TextView
+          style="@style/LittleText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:text="@string/logout" />
+      </LinearLayout>
+    </LinearLayout>
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/dm1"
+      android:background="@color/gray" />
+
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/dm180">
+
+      <org.osmdroid.views.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:focusable="false" />
+
+      <ImageView
+        android:id="@+id/ivLocation"
+        android:layout_width="@dimen/dm48"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_location"
+        tools:ignore="ContentDescription" />
+
+    </FrameLayout>
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/dm1"
+      android:background="@color/gray" />
+
+    <TextView
+      style="@style/RegularText"
+      android:id="@+id/tvAddress"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/dm10"
+      app:drawableStartCompat="@drawable/ic_location"
+      app:drawableTint="@color/textColorLow"
+      android:drawablePadding="@dimen/dm10"
+      android:gravity="center_vertical"
+      tools:text="Address" />
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/dm1"
+      android:background="@color/gray" />
+
+    <TextView
+      style="@style/RegularText"
+      android:id="@+id/tvEmail"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/dm10"
+      app:drawableStartCompat="@drawable/ic_email"
+      app:drawableTint="@color/textColorLow"
+      android:drawablePadding="@dimen/dm10"
+      android:gravity="center_vertical"
+      tools:text="Email" />
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/dm1"
+      android:background="@color/gray" />
+
+    <TextView
+      style="@style/RegularText"
+      android:id="@+id/tvPhone"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/dm10"
+      app:drawableStartCompat="@drawable/ic_phone"
+      app:drawableTint="@color/textColorLow"
+      android:drawablePadding="@dimen/dm10"
+      android:gravity="center_vertical"
+      tools:text="Phone" />
 
 
   </LinearLayout>

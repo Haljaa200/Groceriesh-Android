@@ -26,7 +26,17 @@
   <fragment
     android:id="@+id/profileFragment"
     android:name="com.haljaa200.groceriesh.ui.fragments.ProfileFragment"
-    android:label="ProfileFragment" />
+    android:label="ProfileFragment" >
+    <action
+      android:id="@+id/action_profileFragment_to_ordersFragment"
+      app:destination="@id/ordersFragment" />
+    <action
+      android:id="@+id/action_profileFragment_to_homeFragment"
+      app:destination="@id/homeFragment" />
+    <action
+      android:id="@+id/action_profileFragment_to_logoutDialogFragment"
+      app:destination="@id/logoutDialogFragment" />
+  </fragment>
 
   <dialog
     android:id="@+id/loginDialogFragment"
@@ -41,4 +51,9 @@
     android:id="@+id/registerFragment"
     android:name="com.haljaa200.groceriesh.ui.fragments.RegisterFragment"
     android:label="RegisterFragment" />
+
+  <dialog
+    android:id="@+id/logoutDialogFragment"
+    android:name="com.haljaa200.groceriesh.ui.fragments.LogoutDialogFragment"
+    android:label="LogoutDialogFragment" />
 </navigation>

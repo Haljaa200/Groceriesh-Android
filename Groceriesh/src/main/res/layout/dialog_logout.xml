@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/shape_layout_top_rounded">
+
+    <include layout="@layout/bottomsheet_top_line" />
+
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:divider="@drawable/shape_space_vertical"
+    android:showDividers="middle"
+    android:paddingTop="@dimen/dm10"
+    android:paddingStart="@dimen/dm14"
+    android:paddingEnd="@dimen/dm14"
+    android:layout_marginTop="@dimen/dm6"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+      style="@style/HeaderBoldText"
+      android:id="@+id/tvTitle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/logout"
+      android:gravity="start" />
+
+    <TextView
+      style="@style/RegularText"
+      android:id="@+id/tvtext"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/logout_prompt"
+      android:gravity="start" />
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:divider="@drawable/shape_space_horizental"
+      android:showDividers="middle"
+      android:gravity="center_vertical"
+      android:orientation="horizontal">
+
+      <androidx.appcompat.widget.AppCompatButton
+        style="@style/NormalBorderedRectangleButton"
+        android:id="@+id/btnOk"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/dm10"
+        android:layout_marginBottom="@dimen/dm10"
+        android:textColor="@color/error"
+        android:text="@string/yes" />
+
+      <androidx.appcompat.widget.AppCompatButton
+        style="@style/NormalBorderedRectangleButton"
+        android:id="@+id/btnCancel"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginTop="@dimen/dm10"
+        android:layout_marginBottom="@dimen/dm10"
+        android:text="@string/cancel"/>
+
+    </LinearLayout>
+
+  </LinearLayout>
+  </LinearLayout>
+</layout>

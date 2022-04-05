@@ -12,4 +12,5 @@ object Constants {
     const val USER_DELIVERY_ADDRESS = "USER_DELIVERY_ADDRESS"
     const val USER_TOKEN = "USER_TOKEN"
     const val USER_ID = "USER_ID"
+    const val LOGOUT_DIALOG_RESULT = "LOGOUT_DIALOG_RESULT"
 }

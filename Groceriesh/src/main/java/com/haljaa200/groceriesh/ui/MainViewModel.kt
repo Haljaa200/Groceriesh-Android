@@ -42,6 +42,8 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
         saveString(Constants.USER_LATITUDE, customer.latitude.toString())
         saveString(Constants.USER_LONGITUDE, customer.longitude.toString())
         saveString(Constants.USER_TOKEN, token)
+
+        loggedIn.postValue(true)
     }
     fun removeUserData() {
         removePref(Constants.LOGGED_IN)
@@ -54,6 +56,8 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
         removePref(Constants.USER_LATITUDE)
         removePref(Constants.USER_LONGITUDE)
         removePref(Constants.USER_TOKEN)
+
+        loggedIn.postValue(false)
     }
 
     val loggedIn = MutableLiveData(getBoolean(Constants.LOGGED_IN))

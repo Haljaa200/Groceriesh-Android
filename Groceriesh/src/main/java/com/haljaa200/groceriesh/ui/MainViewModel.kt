@@ -67,6 +67,7 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
     val registerResponse: MutableLiveData<Resource<RegisterResponse>> = MutableLiveData()
     val editProfileResponse: MutableLiveData<Resource<RegisterResponse>> = MutableLiveData()
     val categoriesResponse: MutableLiveData<Resource<Categories>> = MutableLiveData()
+    val itemsResponse: MutableLiveData<Resource<Items>> = MutableLiveData()
 
     fun login(loginData: Login) = viewModelScope.launch {
         loginResponse.postValue(Resource.Loading())
@@ -129,7 +130,6 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
             if(hasInternetConnection()) {
                 val response = RetrofitInstance(retrofit).api.getCategories(token)
                 categoriesResponse.postValue(handleRetrofitResponse(response))
-                Vlog.i(response.toString())
             } else {
                 categoriesResponse.postValue(Resource.Error(context.getString(R.string.no_internet)))
             }
@@ -137,6 +137,24 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
             when(t) {
                 is IOException -> categoriesResponse.postValue(Resource.Error(context.getString(R.string.check_your_internet)))
                 else -> categoriesResponse.postValue(Resource.Error(context.getString(R.string.connectionError)))
+            }
+        }
+    }
+
+    fun getItems() = viewModelScope.launch {
+        itemsResponse.postValue(Resource.Loading())
+
+        try {
+            if(hasInternetConnection()) {
+                val response = RetrofitInstance(retrofit).api.getItems(token)
+                itemsResponse.postValue(handleRetrofitResponse(response))
+            } else {
+                itemsResponse.postValue(Resource.Error(context.getString(R.string.no_internet)))
+            }
+        } catch(t: Throwable) {
+            when(t) {
+                is IOException -> itemsResponse.postValue(Resource.Error(context.getString(R.string.check_your_internet)))
+                else -> itemsResponse.postValue(Resource.Error(context.getString(R.string.connectionError)))
             }
         }
     }

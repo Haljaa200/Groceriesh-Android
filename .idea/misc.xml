@@ -5,11 +5,13 @@
       <map>
         <entry key="..\:/Dev/AndroidStudio/Groceriesh/Groceriesh/src/main/res/drawable/bottom_navigation_background.xml" value="0.314" />
         <entry key="..\:/Dev/AndroidStudio/Groceriesh/Groceriesh/src/main/res/drawable/bottom_navigation_color_selector.xml" value="0.314" />
+        <entry key="..\:/Dev/AndroidStudio/Groceriesh/Groceriesh/src/main/res/drawable/ic_grocery.xml" value="0.3635" />
         <entry key="..\:/Dev/AndroidStudio/Groceriesh/Groceriesh/src/main/res/drawable/ic_location.xml" value="0.1935" />
         <entry key="..\:/Dev/AndroidStudio/Groceriesh/Groceriesh/src/main/res/drawable/ic_my_location.xml" value="0.314" />
         <entry key="..\:/Dev/AndroidStudio/Groceriesh/Groceriesh/src/main/res/drawable/mic_user.xml" value="0.314" />
         <entry key="..\:/Dev/AndroidStudio/Groceriesh/Groceriesh/src/main/res/drawable/shape_background_dialog.xml" value="0.314" />
         <entry key="..\:/Dev/AndroidStudio/Groceriesh/Groceriesh/src/main/res/drawable/shape_background_rectangle_raduced_10dm.xml" value="0.314" />
+        <entry key="..\:/Dev/AndroidStudio/Groceriesh/Groceriesh/src/main/res/drawable/shape_button_stroked_rectangle.xml" value="0.3635" />
         <entry key="..\:/Dev/AndroidStudio/Groceriesh/Groceriesh/src/main/res/drawable/shape_edit_text_rectangle.xml" value="0.314" />
         <entry key="..\:/Dev/AndroidStudio/Groceriesh/Groceriesh/src/main/res/drawable/shape_rounded_line.xml" value="0.314" />
         <entry key="..\:/Dev/AndroidStudio/Groceriesh/Groceriesh/src/main/res/layout/activity_main.xml" value="0.26358695652173914" />
@@ -27,6 +29,7 @@
         <entry key="..\:/Dev/AndroidStudio/Groceriesh/Groceriesh/src/main/res/layout/fragment_orders.xml" value="0.3625" />
         <entry key="..\:/Dev/AndroidStudio/Groceriesh/Groceriesh/src/main/res/layout/fragment_profile.xml" value="0.2" />
         <entry key="..\:/Dev/AndroidStudio/Groceriesh/Groceriesh/src/main/res/layout/fragment_register.xml" value="0.3625" />
+        <entry key="..\:/Dev/AndroidStudio/Groceriesh/Groceriesh/src/main/res/layout/item_product.xml" value="0.4" />
         <entry key="..\:/Dev/AndroidStudio/Groceriesh/Groceriesh/src/main/res/layout/toolbar.xml" value="0.26358695652173914" />
         <entry key="..\:/Dev/AndroidStudio/Groceriesh/Groceriesh/src/main/res/menu/menu_bottom_navigation.xml" value="0.3625" />
       </map>

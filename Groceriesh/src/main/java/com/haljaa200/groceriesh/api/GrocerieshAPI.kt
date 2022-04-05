@@ -16,4 +16,7 @@ interface GrocerieshAPI {
 
     @GET("customer/categories")
     suspend fun getCategories(@Header("x-auth-token") token: String): Response<Categories>
+
+    @GET("customer/items")
+    suspend fun getItems(@Header("x-auth-token") token: String): Response<Items>
 }

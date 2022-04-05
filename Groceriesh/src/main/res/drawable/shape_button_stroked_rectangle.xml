@@ -5,22 +5,22 @@
 
   <item android:state_enabled="false">
     <shape android:shape="rectangle">
-      <corners android:radius="@dimen/dm4"/>
+      <corners android:radius="@dimen/dm10"/>
       <stroke android:color="@color/textColorLow" />
     </shape>
   </item>
 
   <item android:state_pressed="true">
     <shape android:shape="rectangle">
-      <corners android:radius="@dimen/dm4"/>
-      <stroke android:width="@dimen/dm1" android:color="@color/mainColor" />
+      <corners android:radius="@dimen/dm10"/>
+      <stroke android:width="1.5dp" android:color="@color/mainColor" />
     </shape>
   </item>
 
   <item android:state_enabled="true">
     <shape android:shape="rectangle">
-      <corners android:radius="@dimen/dm4"/>
-      <stroke android:width="@dimen/dm1" android:color="@color/cardBackgroundText" />
+      <corners android:radius="@dimen/dm10"/>
+      <stroke android:width="1.5dp" android:color="@color/cardBackgroundText" />
     </shape>
   </item>
 

@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.chip.Chip
 import com.haljaa200.groceriesh.R
+import com.haljaa200.groceriesh.adapters.ItemsAdapter
 import com.haljaa200.groceriesh.databinding.FragmentHomeBinding
 import com.haljaa200.groceriesh.util.Constants
 import com.haljaa200.groceriesh.util.Resource
@@ -19,6 +21,7 @@ import com.haljaa200.groceriesh.util.Vlog
 class HomeFragment: BaseFragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private lateinit var rvItemsAdapter: ItemsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +46,44 @@ class HomeFragment: BaseFragment() {
 
     private fun showData() {
         binding.tvAddress.text = viewModel.getString(Constants.USER_DELIVERY_ADDRESS)
+        setupRecyclerView()
         showCategories()
+        showItems()
+    }
+
+    private fun setupRecyclerView() {
+        rvItemsAdapter = ItemsAdapter(glide)
+
+        binding.rvItems.apply {
+            adapter = rvItemsAdapter
+            layoutManager = GridLayoutManager(requireContext(), 3)
+        }
+    }
+
+    private fun showItems() {
+        viewModel.getItems()
+        viewModel.itemsResponse.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    response.data?.let {
+                        if (it.success) {
+                            rvItemsAdapter.differ.submitList(it.data.items)
+                        }
+                    }
+                }
+
+                is Resource.Error -> {
+                    response.message?.let { message: String ->
+                        Vlog.e(message)
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                is Resource.Loading -> {
+                    Vlog.i("Loading...")
+                }
+            }
+        }
     }
 
     private fun showCategories() {

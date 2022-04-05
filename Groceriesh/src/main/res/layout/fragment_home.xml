@@ -43,6 +43,8 @@
     <HorizontalScrollView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:requiresFadingEdge="horizontal"
+      android:fadingEdgeLength="30dp"
       android:scrollbars="none">
 
       <com.google.android.material.chip.ChipGroup
@@ -51,7 +53,7 @@
         android:layout_height="wrap_content"
         app:singleSelection="true"
         android:paddingStart="@dimen/dm6"
-        tools:ignore="RtlSymmetry">
+        android:paddingEnd="@dimen/dm6">
 
         <com.google.android.material.chip.Chip
           android:id="@+id/chNewProducts"
@@ -62,7 +64,15 @@
           android:text="@string/new_products"/>
 
       </com.google.android.material.chip.ChipGroup>
-
     </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rvItems"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      tools:listitem="@layout/rv_item_product"
+      app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+      app:spanCount="3" />
+
   </LinearLayout>
 </layout>

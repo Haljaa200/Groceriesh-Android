@@ -1,12 +1,11 @@
 package com.haljaa200.groceriesh.ui.fragments
 
-import android.R.attr.buttonStyle
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.view.ContextThemeWrapper
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.chip.Chip
@@ -50,6 +49,18 @@ class HomeFragment: BaseFragment() {
         setupRecyclerView()
         showCategories()
         showItems()
+        showBasket()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun showBasket() {
+        viewModel.getBasketSum().observe(viewLifecycleOwner) {
+            if (it == 0.0 || it == null) binding.tvBasket.visibility = View.GONE
+            else {
+                binding.tvBasket.visibility = View.VISIBLE
+                binding.tvBasket.text = "${it.toString().replace("null", "0")}${resources.getString(R.string.priceUnit)}"
+            }
+        }
     }
 
     private fun setupRecyclerView() {

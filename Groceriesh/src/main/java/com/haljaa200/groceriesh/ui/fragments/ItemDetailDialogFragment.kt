@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.haljaa200.groceriesh.R
 import com.haljaa200.groceriesh.databinding.DialogItemDetailBinding
+import com.haljaa200.groceriesh.models.OrderItem
 
 class ItemDetailDialogFragment: BaseBottomSheetDialogFragment() {
     private var _binding: DialogItemDetailBinding? = null
@@ -28,10 +29,22 @@ class ItemDetailDialogFragment: BaseBottomSheetDialogFragment() {
         binding.tvPrice.text = "${args.item.price}${resources.getString(R.string.priceUnit)}"
         binding.tvName.text = args.item.name
         binding.tvDescription.text = args.item.description
+        viewModel.getOrderItem(args.item._id).observe(viewLifecycleOwner) {
+            it?.let {
+                if (it.quantity > 0) {
+                    count = it.quantity
+                    binding.btnAddToBasket.visibility = View.GONE
+                    binding.countLayout.visibility = View.VISIBLE
+                    binding.tvCount.text = it.quantity.toString()
+                }
+            }
+        }
 
         binding.btnAddToBasket.setOnClickListener {
             count += 1
             binding.tvCount.text = count.toString()
+            viewModel.saveOrderItem(OrderItem(null, args.item._id, args.item.name, args.item.photo.toString(), args.item.price, count, args.item.unit))
+
             it.visibility = View.GONE
             binding.countLayout.visibility = View.VISIBLE
         }
@@ -42,11 +55,15 @@ class ItemDetailDialogFragment: BaseBottomSheetDialogFragment() {
             if (count == 0) {
                 binding.countLayout.visibility = View.GONE
                 binding.btnAddToBasket.visibility = View.VISIBLE
+                viewModel.deleteOrderItem(args.item._id)
+            } else {
+                viewModel.updateOrderItemQuantity(args.item._id, count)
             }
         }
 
         binding.ivPlus.setOnClickListener {
             count += 1
+            viewModel.updateOrderItemQuantity(args.item._id, count)
             binding.tvCount.text = count.toString()
         }
 

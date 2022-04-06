@@ -46,12 +46,13 @@
 
       <TextView
         style="@style/RegularText"
-        android:id="@+id/tvCart"
+        android:id="@+id/tvBasket"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="@drawable/shape_edit_text_rectangle"
         android:gravity="center"
         tools:text="22.5$"
+        android:visibility="gone"
         android:padding="@dimen/dm6"
         app:drawableStartCompat="@drawable/ic_shopping_cart"
         app:drawableTint="@color/titleColor"

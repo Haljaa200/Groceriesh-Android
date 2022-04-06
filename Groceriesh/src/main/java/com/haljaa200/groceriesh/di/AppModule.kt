@@ -2,9 +2,13 @@ package com.haljaa200.groceriesh.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.haljaa200.groceriesh.db.DbRepository
+import com.haljaa200.groceriesh.db.GrocerieshDatabase
+import com.haljaa200.groceriesh.util.Constants
 import com.haljaa200.groceriesh.util.Constants.SITE_URL
 import dagger.Module
 import dagger.Provides
@@ -52,4 +56,19 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
+
+    @Singleton
+    @Provides
+    fun provideDatabase(@ApplicationContext app: Context) = Room.databaseBuilder(
+        app,
+        GrocerieshDatabase::class.java,
+        Constants.DB_FULL_NAME
+    ).build()
+
+
+    @Singleton
+    @Provides
+    fun provideMainRepository(db: GrocerieshDatabase): DbRepository {
+        return DbRepository(db)
+    }
 }

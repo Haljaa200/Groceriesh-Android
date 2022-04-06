@@ -9,11 +9,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.haljaa200.groceriesh.R
 import com.haljaa200.groceriesh.api.RetrofitInstance
+import com.haljaa200.groceriesh.db.DbRepository
 import com.haljaa200.groceriesh.models.*
 import com.haljaa200.groceriesh.util.Constants
 import com.haljaa200.groceriesh.util.Resource
 import com.haljaa200.groceriesh.util.Tools.handleRetrofitResponse
-import com.haljaa200.groceriesh.util.Vlog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-open class MainViewModel @Inject constructor(app: Application, private val retrofit: Retrofit, private val sharedPreferences: SharedPreferences): AndroidViewModel(app) {
+open class MainViewModel @Inject constructor(app: Application, private val retrofit: Retrofit, private val sharedPreferences: SharedPreferences, private val dbRepository: DbRepository): AndroidViewModel(app) {
 
     protected val context get() = getApplication<Application>()
 
@@ -183,4 +183,13 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
     }
 
     val token = getString(Constants.USER_TOKEN)
+
+    fun saveOrderItem(orderItem: OrderItem) = viewModelScope.launch { dbRepository.upsertOrderItem(orderItem) }
+    fun getOrderItem(id: String) = dbRepository.getOrderItem(id)
+    fun deleteOrderItem(id: String) = viewModelScope.launch { dbRepository.deleteOrderItem(id) }
+    fun updateOrderItemQuantity(id: String, quantity: Int) = viewModelScope.launch { dbRepository.updateOrderItemQuantity(id, quantity) }
+    fun deleteOrderItem(orderItem: OrderItem) = viewModelScope.launch { dbRepository.deleteOrderItem(orderItem) }
+    fun deleteBasket() = viewModelScope.launch { dbRepository.deleteBasket() }
+    fun getBasketOrders() = dbRepository.getBasketOrders()
+    fun getBasketSum() = dbRepository.getBasketSum()
 }

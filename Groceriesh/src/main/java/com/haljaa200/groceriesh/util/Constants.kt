@@ -1,6 +1,7 @@
 package com.haljaa200.groceriesh.util
 
 object Constants {
+    const val DB_FULL_NAME = "groceriesh.db"
     const val SITE_URL = "https://api.groceriesh.com"
     const val LOGGED_IN = "LOGGED_IN"
     const val USER_FIRST_NAME = "USER_FIRST_NAME"

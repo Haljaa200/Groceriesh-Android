@@ -16,7 +16,7 @@ data class Item(
     val _id: String,
     val category_id: String,
     val description: String,
-    val photo: String = "",
+    val photo: String? = "",
     val name: String,
     val price: Double,
     val unit: String,

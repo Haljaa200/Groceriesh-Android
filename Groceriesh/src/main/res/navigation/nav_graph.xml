@@ -11,6 +11,9 @@
     <action
       android:id="@+id/action_homeFragment_to_loginDialogFragment"
       app:destination="@id/loginDialogFragment" />
+    <action
+      android:id="@+id/action_homeFragment_to_cartFragment"
+      app:destination="@id/cartFragment" />
   </fragment>
 
   <fragment

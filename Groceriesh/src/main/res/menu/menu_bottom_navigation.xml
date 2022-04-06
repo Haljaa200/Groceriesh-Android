@@ -9,10 +9,6 @@
     android:title="@string/orders"
     android:icon="@drawable/ic_orders" />
 
-  <item android:id="@+id/cartFragment"
-    android:title="@string/cart"
-    android:icon="@drawable/ic_shopping_cart" />
-
   <item android:id="@+id/profileFragment"
     android:title="@string/profile"
     android:icon="@drawable/ic_user" />

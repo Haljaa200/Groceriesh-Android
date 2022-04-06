@@ -16,27 +16,46 @@
       android:divider="@drawable/shape_space_vertical"
       android:background="@color/controls"
       android:showDividers="middle"
-      android:orientation="vertical">
+      android:orientation="horizontal">
 
-      <TextView
-        style="@style/HeaderText"
-        android:layout_width="wrap_content"
+      <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/my_location" />
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+          style="@style/HeaderText"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="start"
+          android:text="@string/my_location" />
+
+        <TextView
+          style="@style/RegularText"
+          android:id="@+id/tvAddress"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="start"
+          android:maxLines="1"
+          android:textColor="@color/white"
+          android:ellipsize="end"
+          android:text="@string/choose_delivery_address" />
+
+      </LinearLayout>
 
       <TextView
         style="@style/RegularText"
-        android:id="@+id/tvAddress"
+        android:id="@+id/tvCart"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:maxLines="1"
-        android:paddingStart="@dimen/dm6"
-        android:paddingEnd="@dimen/dm6"
-        android:textColor="@color/white"
-        android:ellipsize="end"
-        android:text="@string/choose_delivery_address" />
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_edit_text_rectangle"
+        android:gravity="center"
+        tools:text="22.5$"
+        android:padding="@dimen/dm6"
+        app:drawableStartCompat="@drawable/ic_shopping_cart"
+        app:drawableTint="@color/titleColor"
+        android:drawablePadding="@dimen/dm6"/>
 
     </LinearLayout>
 

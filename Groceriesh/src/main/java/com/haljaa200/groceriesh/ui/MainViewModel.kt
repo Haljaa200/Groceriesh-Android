@@ -159,6 +159,24 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
         }
     }
 
+    fun getCategoryItems(categoryId: String) = viewModelScope.launch {
+        itemsResponse.postValue(Resource.Loading())
+
+        try {
+            if(hasInternetConnection()) {
+                val response = RetrofitInstance(retrofit).api.getCategoryItems(token, categoryId)
+                itemsResponse.postValue(handleRetrofitResponse(response))
+            } else {
+                itemsResponse.postValue(Resource.Error(context.getString(R.string.no_internet)))
+            }
+        } catch(t: Throwable) {
+            when(t) {
+                is IOException -> itemsResponse.postValue(Resource.Error(context.getString(R.string.check_your_internet)))
+                else -> itemsResponse.postValue(Resource.Error(context.getString(R.string.connectionError)))
+            }
+        }
+    }
+
     private fun hasInternetConnection(): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo!!.isConnected

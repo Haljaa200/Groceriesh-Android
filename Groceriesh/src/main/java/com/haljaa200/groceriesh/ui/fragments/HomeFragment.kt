@@ -46,6 +46,7 @@ class HomeFragment: BaseFragment() {
 
     private fun showData() {
         binding.tvAddress.text = viewModel.getString(Constants.USER_DELIVERY_ADDRESS)
+        binding.chNewProducts.visibility = View.VISIBLE
         setupRecyclerView()
         showCategories()
         showItems()
@@ -67,7 +68,7 @@ class HomeFragment: BaseFragment() {
                 is Resource.Success -> {
                     response.data?.let {
                         if (it.success) {
-                            rvItemsAdapter.differ.submitList(it.data.items)
+                            rvItemsAdapter.differ.submitList(it.data.items.toMutableList())
                         }
                     }
                 }
@@ -87,6 +88,14 @@ class HomeFragment: BaseFragment() {
     }
 
     private fun showCategories() {
+        binding.chNewProducts.setOnCheckedChangeListener { chip, checked ->
+            chip.isClickable = !checked
+        }
+
+        binding.chNewProducts.setOnClickListener {
+            viewModel.getItems()
+        }
+
         viewModel.getCategories()
         viewModel.categoriesResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -95,8 +104,13 @@ class HomeFragment: BaseFragment() {
                         if (it.success) {
                             it.data.categories.forEach { category ->
                                 val chip = LayoutInflater.from(requireContext()).inflate(R.layout.chip, null) as Chip
+                                chip.setOnCheckedChangeListener { chip, checked ->
+                                    chip.isClickable = !checked
+                                }
                                 chip.text = category.name
-                                chip.setOnClickListener {  }
+                                chip.setOnClickListener {
+                                    viewModel.getCategoryItems(category._id)
+                                }
                                 binding.chipGroupCategories.addView(chip)
                             }
                         }

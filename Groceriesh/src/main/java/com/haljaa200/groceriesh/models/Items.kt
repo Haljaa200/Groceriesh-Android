@@ -16,7 +16,7 @@ data class Item(
     val description: String,
     val photo: String = "",
     val name: String,
-    val price: Int,
+    val price: Double,
     val unit: String,
     val vendor_id: String
 )

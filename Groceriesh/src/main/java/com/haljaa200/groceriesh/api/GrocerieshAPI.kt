@@ -19,4 +19,7 @@ interface GrocerieshAPI {
 
     @GET("customer/items")
     suspend fun getItems(@Header("x-auth-token") token: String): Response<Items>
+
+    @GET("customer/category_items/{id}")
+    suspend fun getCategoryItems(@Header("x-auth-token") token: String, @Path("id") categoryId: String): Response<Items>
 }

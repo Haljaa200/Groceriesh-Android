@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.haljaa200.groceriesh.R
 import com.haljaa200.groceriesh.databinding.FragmentProfileBinding
+import com.haljaa200.groceriesh.models.DialogInfo
 import com.haljaa200.groceriesh.util.Constants
 import org.osmdroid.api.IMapController
 import org.osmdroid.config.Configuration
@@ -53,7 +54,9 @@ class ProfileFragment: BaseFragment() {
         }
 
         binding.ivLogout.setOnClickListener {
-            LogoutDialogFragment.openForResult(this, R.id.action_profileFragment_to_logoutDialogFragment) { confirmed ->
+            val info = DialogInfo(R.string.logout, R.string.logout_prompt, R.color.error)
+
+            NormalDialogFragment.openForResult(this, R.id.action_profileFragment_to_normalDialogFragment, info) { confirmed ->
                 if (confirmed) {
                     viewModel.removeUserData()
                     findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToHomeFragment())

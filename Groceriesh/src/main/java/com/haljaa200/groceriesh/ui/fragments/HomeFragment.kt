@@ -61,6 +61,10 @@ class HomeFragment: BaseFragment() {
                 binding.tvBasket.text = "${it.toString().replace("null", "0")}${resources.getString(R.string.priceUnit)}"
             }
         }
+
+        binding.tvBasket.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToBasketFragment())
+        }
     }
 
     private fun setupRecyclerView() {

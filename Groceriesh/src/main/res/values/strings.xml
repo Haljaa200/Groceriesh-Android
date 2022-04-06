@@ -4,7 +4,7 @@
   <string name="stores">Stores</string>
   <string name="home">Home</string>
   <string name="orders">Orders</string>
-  <string name="cart">Cart</string>
+  <string name="basket">Basket</string>
   <string name="your_credit">Your credit</string>
   <string name="profile">Profile</string>
   <string name="my_location">My Location</string>
@@ -46,4 +46,8 @@
   <string name="new_products">New Products</string>
   <string name="priceUnit">£</string>
   <string name="add_to_basket">Add to Basket</string>
+  <string name="continue_str">Continue</string>
+  <string name="total">Total</string>
+  <string name="empty_basket">Empty Basket</string>
+  <string name="empty_basket_prompt">Are you sure you want to empty your basket?</string>
 </resources>

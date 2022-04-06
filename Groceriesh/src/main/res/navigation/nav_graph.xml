@@ -14,6 +14,9 @@
     <action
       android:id="@+id/action_homeFragment_to_cartFragment"
       app:destination="@id/cartFragment" />
+    <action
+      android:id="@+id/action_homeFragment_to_itemDetailDialogFragment"
+      app:destination="@id/itemDetailDialogFragment" />
   </fragment>
 
   <fragment
@@ -63,6 +66,13 @@
     android:name="com.haljaa200.groceriesh.ui.fragments.LogoutDialogFragment"
     android:label="LogoutDialogFragment" />
 
+  <dialog
+    android:id="@+id/itemDetailDialogFragment"
+    android:name="com.haljaa200.groceriesh.ui.fragments.ItemDetailDialogFragment"
+    android:label="ItemDetailDialogFragment">
+
+    <argument android:name="item" app:argType="com.haljaa200.groceriesh.models.Item" />
+  </dialog>
 
   <fragment
     android:id="@+id/editProfileFragment"

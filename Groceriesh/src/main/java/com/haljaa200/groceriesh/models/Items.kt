@@ -1,5 +1,7 @@
 package com.haljaa200.groceriesh.models
 
+import java.io.Serializable
+
 data class Items(
     val `data`: ItemsData,
     val success: Boolean
@@ -19,4 +21,4 @@ data class Item(
     val price: Double,
     val unit: String,
     val vendor_id: String
-)
+): Serializable

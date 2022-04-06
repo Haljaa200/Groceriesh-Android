@@ -59,6 +59,10 @@ class HomeFragment: BaseFragment() {
             adapter = rvItemsAdapter
             layoutManager = GridLayoutManager(requireContext(), 3)
         }
+
+        rvItemsAdapter.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToItemDetailDialogFragment(it))
+        }
     }
 
     private fun showItems() {

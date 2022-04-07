@@ -1,7 +1,11 @@
 package com.haljaa200.groceriesh.ui.fragments
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,15 +16,26 @@ import com.google.android.material.chip.Chip
 import com.haljaa200.groceriesh.R
 import com.haljaa200.groceriesh.adapters.ItemsAdapter
 import com.haljaa200.groceriesh.databinding.FragmentHomeBinding
+import com.haljaa200.groceriesh.models.Vendor
 import com.haljaa200.groceriesh.util.Constants
 import com.haljaa200.groceriesh.util.Resource
+import com.haljaa200.groceriesh.util.Tools
 import com.haljaa200.groceriesh.util.Vlog
-
+import org.osmdroid.api.IMapController
+import org.osmdroid.config.Configuration
+import org.osmdroid.library.BuildConfig
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.overlay.Marker
+import org.osmdroid.views.overlay.Marker.ANCHOR_BOTTOM
+import org.osmdroid.views.overlay.Marker.ANCHOR_CENTER
 
 class HomeFragment: BaseFragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var rvItemsAdapter: ItemsAdapter
+    private val vendors = mutableListOf<Vendor>()
+    private var selectedVendorId = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,10 +61,12 @@ class HomeFragment: BaseFragment() {
     private fun showData() {
         binding.tvAddress.text = viewModel.getString(Constants.USER_DELIVERY_ADDRESS)
         binding.chNewProducts.visibility = View.VISIBLE
-        setupRecyclerView()
+        setupItemsRecyclerView()
+        showBasket()
+        showMap()
+        showVendors()
         showCategories()
         showItems()
-        showBasket()
     }
 
     @SuppressLint("SetTextI18n")
@@ -67,7 +84,86 @@ class HomeFragment: BaseFragment() {
         }
     }
 
-    private fun setupRecyclerView() {
+    @SuppressLint("ClickableViewAccessibility")
+    private fun showMap() {
+        val ctx = requireContext()
+        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx))
+        Configuration.getInstance().userAgentValue = BuildConfig.APPLICATION_ID
+        binding.map.setUseDataConnection(true)
+        binding.map.setTileSource(TileSourceFactory.MAPNIK)
+        binding.map.setMultiTouchControls(false)
+        binding.map.setBuiltInZoomControls(false)
+        val mapController: IMapController = binding.map.controller
+        mapController.setZoom(17)
+        val defaultPoint = GeoPoint(viewModel.getString(Constants.USER_LATITUDE).toDouble(),viewModel.getString(Constants.USER_LONGITUDE).toDouble())
+        mapController.setCenter(defaultPoint)
+        addMyMarker()
+    }
+
+    private fun addMyMarker() {
+        val marker = Marker(binding.map)
+        marker.position = GeoPoint(viewModel.getString(Constants.USER_LATITUDE).toDouble(),viewModel.getString(Constants.USER_LONGITUDE).toDouble())
+        marker.setAnchor(ANCHOR_CENTER, ANCHOR_BOTTOM)
+        marker.title = getString(R.string.my_location)
+        val bitmap = Tools.getBitmapFromVector(requireContext(), R.drawable.ic_location)
+        val dr: Drawable = BitmapDrawable(
+            resources, Bitmap.createScaledBitmap(
+                bitmap,
+                (48.0f * resources.displayMetrics.density).toInt(),
+                (48.0f * resources.displayMetrics.density).toInt(), true
+            )
+        )
+        marker.icon = dr
+        binding.map.overlays.add(marker)
+        binding.map.invalidate()
+    }
+
+    private fun addVendorMarker(vendor: Vendor) {
+        val marker = Marker(binding.map)
+        marker.position = GeoPoint(vendor.latitude, vendor.longitude)
+        marker.setAnchor(ANCHOR_CENTER, ANCHOR_BOTTOM)
+        marker.title = vendor.store_name
+        val bitmap = Tools.getBitmapFromVector(requireContext(), R.drawable.ic_store)
+        val dr: Drawable = BitmapDrawable(
+            resources, Bitmap.createScaledBitmap(
+                bitmap,
+                (35.0f * resources.displayMetrics.density).toInt(),
+                (31.0f * resources.displayMetrics.density).toInt(), true
+            )
+        )
+        marker.icon = dr
+        marker.setOnMarkerClickListener { clickedMarker, _ ->
+            val selectedVendor = vendors.first { it.store_name == clickedMarker.title && it.latitude == clickedMarker.position.latitude && it.longitude == clickedMarker.position.longitude }
+            selectedVendorId = selectedVendor._id
+            viewModel.getVendorItems(selectedVendor._id)
+            binding.chNewProducts.isChecked = true
+            binding.filterLayout.visibility = View.VISIBLE
+            binding.tvFilter.text = getString(R.string.filter_prompt).replace("\$NAME", clickedMarker.title)
+
+            binding.ivRemoveFilter.setOnClickListener {
+                binding.filterLayout.visibility = View.GONE
+                binding.chNewProducts.isChecked = true
+                selectedVendorId = ""
+                viewModel.getItems()
+            }
+
+            true
+        }
+        binding.map.overlays.add(marker)
+        binding.map.invalidate()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.map.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.map.onPause()
+    }
+
+    private fun setupItemsRecyclerView() {
         rvItemsAdapter = ItemsAdapter(glide)
 
         binding.rvItems.apply {
@@ -77,6 +173,36 @@ class HomeFragment: BaseFragment() {
 
         rvItemsAdapter.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToItemDetailDialogFragment(it))
+        }
+    }
+
+    private fun showVendors() {
+        viewModel.getVendors()
+        viewModel.vendorsResponse.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    response.data?.let {
+                        if (it.success) {
+                            vendors.clear()
+                            vendors.addAll(it.data.vendors)
+                            it.data.vendors.forEach { vendor ->
+                                addVendorMarker(vendor)
+                            }
+                        }
+                    }
+                }
+
+                is Resource.Error -> {
+                    response.message?.let { message: String ->
+                        Vlog.e(message)
+                        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                is Resource.Loading -> {
+                    Vlog.i("Loading...")
+                }
+            }
         }
     }
 
@@ -128,7 +254,8 @@ class HomeFragment: BaseFragment() {
                                 }
                                 chip.text = category.name
                                 chip.setOnClickListener {
-                                    viewModel.getCategoryItems(category._id)
+                                    if (selectedVendorId.isEmpty()) viewModel.getCategoryItems(category._id)
+                                    else viewModel.getVendorItems(selectedVendorId, category._id)
                                 }
                                 binding.chipGroupCategories.addView(chip)
                             }

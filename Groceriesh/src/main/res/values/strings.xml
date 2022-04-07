@@ -50,4 +50,5 @@
   <string name="total">Total</string>
   <string name="empty_basket">Empty Basket</string>
   <string name="empty_basket_prompt">Are you sure you want to empty your basket?</string>
+  <string name="filter_prompt">Showing $NAME Products</string>
 </resources>

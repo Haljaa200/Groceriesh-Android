@@ -14,6 +14,7 @@ import com.haljaa200.groceriesh.models.*
 import com.haljaa200.groceriesh.util.Constants
 import com.haljaa200.groceriesh.util.Resource
 import com.haljaa200.groceriesh.util.Tools.handleRetrofitResponse
+import com.haljaa200.groceriesh.util.Vlog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
@@ -68,6 +69,7 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
     val editProfileResponse: MutableLiveData<Resource<RegisterResponse>> = MutableLiveData()
     val categoriesResponse: MutableLiveData<Resource<Categories>> = MutableLiveData()
     val itemsResponse: MutableLiveData<Resource<Items>> = MutableLiveData()
+    val vendorsResponse: MutableLiveData<Resource<Vendors>> = MutableLiveData()
 
     fun login(loginData: Login) = viewModelScope.launch {
         loginResponse.postValue(Resource.Loading())
@@ -173,6 +175,43 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
             when(t) {
                 is IOException -> itemsResponse.postValue(Resource.Error(context.getString(R.string.check_your_internet)))
                 else -> itemsResponse.postValue(Resource.Error(context.getString(R.string.connectionError)))
+            }
+        }
+    }
+
+    fun getVendorItems(vendorId: String, categoryId: String = "0") = viewModelScope.launch {
+        itemsResponse.postValue(Resource.Loading())
+
+        try {
+            if(hasInternetConnection()) {
+                val response = RetrofitInstance(retrofit).api.getVendorItems(token, vendorId, categoryId)
+                Vlog.i(response.toString())
+                itemsResponse.postValue(handleRetrofitResponse(response))
+            } else {
+                itemsResponse.postValue(Resource.Error(context.getString(R.string.no_internet)))
+            }
+        } catch(t: Throwable) {
+            when(t) {
+                is IOException -> itemsResponse.postValue(Resource.Error(context.getString(R.string.check_your_internet)))
+                else -> itemsResponse.postValue(Resource.Error(context.getString(R.string.connectionError)))
+            }
+        }
+    }
+
+    fun getVendors() = viewModelScope.launch {
+        vendorsResponse.postValue(Resource.Loading())
+
+        try {
+            if(hasInternetConnection()) {
+                val response = RetrofitInstance(retrofit).api.getVendors(token)
+                vendorsResponse.postValue(handleRetrofitResponse(response))
+            } else {
+                vendorsResponse.postValue(Resource.Error(context.getString(R.string.no_internet)))
+            }
+        } catch(t: Throwable) {
+            when(t) {
+                is IOException -> vendorsResponse.postValue(Resource.Error(context.getString(R.string.check_your_internet)))
+                else -> vendorsResponse.postValue(Resource.Error(context.getString(R.string.connectionError)))
             }
         }
     }

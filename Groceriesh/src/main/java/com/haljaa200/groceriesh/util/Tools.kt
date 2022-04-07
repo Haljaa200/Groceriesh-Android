@@ -4,6 +4,8 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.res.ColorStateList
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.util.DisplayMetrics
 import android.util.Patterns
@@ -12,6 +14,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.marginBottom
 import androidx.core.view.marginLeft
@@ -165,5 +168,19 @@ object Tools {
         return dialog
     }
 
+    fun getBitmapFromVector(context: Context?, drawableId: Int): Bitmap {
+        val drawable = ContextCompat.getDrawable(context!!, drawableId)
+        val width = drawable!!.intrinsicWidth
+        val height = drawable.intrinsicHeight
+        val bitmap: Bitmap = if (width < height) {
+            Bitmap.createBitmap(height, height, Bitmap.Config.ARGB_8888)
+        } else {
+            Bitmap.createBitmap(width, width, Bitmap.Config.ARGB_8888)
+        }
+        val canvas = Canvas(bitmap)
+        drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
+        drawable.draw(canvas)
+        return bitmap
+    }
 
 }

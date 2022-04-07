@@ -60,6 +60,41 @@
 
     </LinearLayout>
 
+    <org.osmdroid.views.MapView
+      android:id="@+id/map"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/dm180" />
+
+    <LinearLayout
+      android:id="@+id/filterLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/backgroundSecondary"
+      android:visibility="gone"
+      android:orientation="horizontal">
+
+      <TextView
+        style="@style/LittleText"
+        android:id="@+id/tvFilter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dm8"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        tools:text="@string/filter_prompt" />
+
+      <ImageView
+        android:id="@+id/ivRemoveFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_remove"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/dm8"
+        app:tint="@color/error" />
+
+    </LinearLayout>
+
+
     <HorizontalScrollView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

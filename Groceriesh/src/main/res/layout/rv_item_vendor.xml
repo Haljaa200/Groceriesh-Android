@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+
+  <LinearLayout
+    style="@style/NormalBorderedRectangleButton"
+    android:id="@+id/item"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/backgroundSecondary"
+    android:layout_margin="@dimen/dm10"
+    android:padding="@dimen/dm10"
+    android:orientation="vertical">
+
+    <FrameLayout
+      style="@style/NormalBorderedRectangleButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:backgroundTint="@color/textColor">
+
+      <org.osmdroid.views.MapView
+        android:id="@+id/map"
+        android:layout_width="@dimen/dm180"
+        android:layout_height="@dimen/dm100" />
+    </FrameLayout>
+
+    <TextView
+      style="@style/RegularBoldText"
+      android:id="@+id/tvStoreName"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textColor="@color/titleColor"
+      android:layout_marginTop="@dimen/dm4"
+      android:maxLines="1"
+      tools:text="Store Name" />
+
+    <TextView
+      style="@style/RegularText"
+      android:id="@+id/tvStoreAddress"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:maxLines="1"
+      android:ellipsize="end"
+      tools:text="Address" />
+
+  </LinearLayout>
+</layout>

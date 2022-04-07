@@ -22,4 +22,10 @@ interface GrocerieshAPI {
 
     @GET("customer/category_items/{id}")
     suspend fun getCategoryItems(@Header("x-auth-token") token: String, @Path("id") categoryId: String): Response<Items>
+
+    @GET("customer/vendor_items/{vendor_id}/{category_id}")
+    suspend fun getVendorItems(@Header("x-auth-token") token: String, @Path("vendor_id") vendorId: String, @Path("category_id") categoryId: String): Response<Items>
+
+    @GET("customer/vendors")
+    suspend fun getVendors(@Header("x-auth-token") token: String): Response<Vendors>
 }

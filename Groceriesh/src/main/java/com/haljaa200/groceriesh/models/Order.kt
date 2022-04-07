@@ -8,13 +8,20 @@ import java.io.Serializable
 data class Order(
     val customer_id: String,
     val delivery_address: String,
-    val delivery_latitude: Int,
-    val delivery_longitude: Int,
-    val delivery_time: Int,
-    val delivery_time_planned: Int,
-    val items: List<OrderItem>,
-    val notes: String,
-    val total_price: Int
+    val delivery_latitude: Double,
+    val delivery_longitude: Double,
+    val delivery_time: Long,
+    val delivery_time_planned: Long,
+    val items: List<DefaultOrderItem>,
+    var notes: String,
+    val total_price: Double
+): Serializable
+
+data class DefaultOrderItem(
+    val name: String,
+    val price: Double,
+    val quantity: Int,
+    val unit: String
 )
 
 @Entity(

@@ -70,6 +70,7 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
     val categoriesResponse: MutableLiveData<Resource<Categories>> = MutableLiveData()
     val itemsResponse: MutableLiveData<Resource<Items>> = MutableLiveData()
     val vendorsResponse: MutableLiveData<Resource<Vendors>> = MutableLiveData()
+    val submitOrderResponse: MutableLiveData<Resource<OrderResponse>> = MutableLiveData()
 
     fun login(loginData: Login) = viewModelScope.launch {
         loginResponse.postValue(Resource.Loading())
@@ -212,6 +213,25 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
             when(t) {
                 is IOException -> vendorsResponse.postValue(Resource.Error(context.getString(R.string.check_your_internet)))
                 else -> vendorsResponse.postValue(Resource.Error(context.getString(R.string.connectionError)))
+            }
+        }
+    }
+
+    fun submitOrder(order: Order) = viewModelScope.launch {
+        submitOrderResponse.postValue(Resource.Loading())
+
+        try {
+            if(hasInternetConnection()) {
+                val response = RetrofitInstance(retrofit).api.submitOrder(token, order)
+                Vlog.i(response.toString())
+                submitOrderResponse.postValue(handleRetrofitResponse(response))
+            } else {
+                submitOrderResponse.postValue(Resource.Error(context.getString(R.string.no_internet)))
+            }
+        } catch(t: Throwable) {
+            when(t) {
+                is IOException -> submitOrderResponse.postValue(Resource.Error(context.getString(R.string.check_your_internet)))
+                else -> submitOrderResponse.postValue(Resource.Error(context.getString(R.string.connectionError)))
             }
         }
     }

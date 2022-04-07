@@ -28,4 +28,8 @@ interface GrocerieshAPI {
 
     @GET("customer/vendors")
     suspend fun getVendors(@Header("x-auth-token") token: String): Response<Vendors>
+
+
+    @POST("customer/order")
+    suspend fun submitOrder(@Header("x-auth-token") token: String, @Body data: Order): Response<OrderResponse>
 }

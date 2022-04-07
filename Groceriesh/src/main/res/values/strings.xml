@@ -51,4 +51,10 @@
   <string name="empty_basket">Empty Basket</string>
   <string name="empty_basket_prompt">Are you sure you want to empty your basket?</string>
   <string name="filter_prompt">Showing $NAME Products</string>
+  <string name="delivery_to_address">Delivery To: $ADDRESS</string>
+  <string name="note">Please write the note here</string>
+  <string name="dont_ring_the_bell">Please do not ring the bell, call me instead.</string>
+  <string name="leave_the_order_at_door">Please Leave the order at my door.</string>
+  <string name="order_and_pay">Order and Pay</string>
+  <string name="checkout">Checkout</string>
 </resources>

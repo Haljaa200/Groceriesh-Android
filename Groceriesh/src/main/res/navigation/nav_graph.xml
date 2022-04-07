@@ -34,6 +34,9 @@
     <action
       android:id="@+id/action_basketFragment_to_normalDialogFragment"
       app:destination="@id/normalDialogFragment" />
+    <action
+      android:id="@+id/action_basketFragment_to_checkoutFragment"
+      app:destination="@id/checkoutFragment" />
   </fragment>
 
   <fragment
@@ -90,4 +93,13 @@
     android:id="@+id/editProfileFragment"
     android:name="com.haljaa200.groceriesh.ui.fragments.EditProfileFragment"
     android:label="EditProfileFragment" />
+
+  <fragment
+    android:id="@+id/checkoutFragment"
+    android:name="com.haljaa200.groceriesh.ui.fragments.CheckoutFragment"
+    android:label="CheckoutFragment">
+
+    <argument android:name="order" app:argType="com.haljaa200.groceriesh.models.Order" />
+
+  </fragment>
 </navigation>

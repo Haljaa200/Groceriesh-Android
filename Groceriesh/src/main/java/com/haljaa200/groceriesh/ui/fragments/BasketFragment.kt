@@ -10,7 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.haljaa200.groceriesh.R
 import com.haljaa200.groceriesh.adapters.BasketAdapter
 import com.haljaa200.groceriesh.databinding.FragmentBasketBinding
+import com.haljaa200.groceriesh.models.DefaultOrderItem
 import com.haljaa200.groceriesh.models.DialogInfo
+import com.haljaa200.groceriesh.models.Order
+import com.haljaa200.groceriesh.util.Constants
 
 class BasketFragment: BaseFragment() {
     private var _binding: FragmentBasketBinding? = null
@@ -41,7 +44,10 @@ class BasketFragment: BaseFragment() {
         }
         
         viewModel.getBasketOrders().observe(viewLifecycleOwner) {
-            rvBasketAdapter.differ.submitList(it.toMutableList())
+            if (it.isEmpty())
+                findNavController().navigateUp()
+            else
+                rvBasketAdapter.differ.submitList(it.toMutableList())
         }
 
         rvBasketAdapter.setOnMinusClickListener {
@@ -72,7 +78,23 @@ class BasketFragment: BaseFragment() {
         }
 
         binding.btnContinue.setOnClickListener {
+            val items = mutableListOf<DefaultOrderItem>()
+            rvBasketAdapter.differ.currentList.forEach {
+                items.add(DefaultOrderItem(it.name, it.price, it.quantity, it.unit))
+            }
+            val order = Order(
+                customer_id = viewModel.getString(Constants.USER_ID),
+                delivery_address = viewModel.getString(Constants.USER_DELIVERY_ADDRESS),
+                delivery_latitude = viewModel.getString(Constants.USER_LATITUDE).toDouble(),
+                delivery_longitude = viewModel.getString(Constants.USER_LONGITUDE).toDouble(),
+                delivery_time = 0,
+                delivery_time_planned = 0,
+                items = items,
+                notes = "",
+                total_price = binding.tvTotal.text.toString().replace("${getString(R.string.total)}: ", "").replace(resources.getString(R.string.priceUnit), "").toDouble()
+            )
 
+            findNavController().navigate(BasketFragmentDirections.actionBasketFragmentToCheckoutFragment(order))
         }
     }
 

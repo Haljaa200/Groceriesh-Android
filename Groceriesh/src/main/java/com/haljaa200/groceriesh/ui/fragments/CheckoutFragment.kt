@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.haljaa200.groceriesh.R
 import com.haljaa200.groceriesh.databinding.FragmentCheckoutBinding
@@ -61,6 +63,7 @@ class CheckoutFragment: BaseFragment() {
                         if (it.success) {
                             viewModel.deleteBasket()
                             Toast.makeText(requireContext(), "Order Submitted.", Toast.LENGTH_SHORT).show()
+                            findNavController().navigateUp()
                         } else {
                             Toast.makeText(requireContext(), it.data.message, Toast.LENGTH_SHORT).show()
                         }

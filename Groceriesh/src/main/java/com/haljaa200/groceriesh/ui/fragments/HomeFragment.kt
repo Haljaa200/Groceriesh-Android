@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.contains
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.chip.Chip
@@ -247,6 +248,8 @@ class HomeFragment: BaseFragment() {
                 is Resource.Success -> {
                     response.data?.let {
                         if (it.success) {
+                            if (binding.chipGroupCategories.childCount > 1) return@observe
+
                             it.data.categories.forEach { category ->
                                 val chip = LayoutInflater.from(requireContext()).inflate(R.layout.chip, null) as Chip
                                 chip.setOnCheckedChangeListener { chip, checked ->

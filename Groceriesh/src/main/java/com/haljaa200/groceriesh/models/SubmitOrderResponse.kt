@@ -11,6 +11,7 @@ data class SubmitOrderResponseData(
 )
 
 data class SubmitOrderResponseObject(
+    val _id: String,
     val customer_id: String,
     val delivery_address: String,
     val delivery_latitude: Double,

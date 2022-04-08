@@ -14,10 +14,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.haljaa200.groceriesh.R
 import com.haljaa200.groceriesh.databinding.FragmentEditProfileBinding
 import com.haljaa200.groceriesh.models.Register
+import com.haljaa200.groceriesh.models.RegisterResponse
 import com.haljaa200.groceriesh.util.Constants
 import com.haljaa200.groceriesh.util.Resource
 import com.haljaa200.groceriesh.util.Tools
@@ -49,7 +51,7 @@ class EditProfileFragment: BaseFragment() {
 
         fillData()
         showMap()
-        binding.btnRegister.setOnClickListener {
+        binding.btnEditProfile.setOnClickListener {
             if (isDataValid()) editProfile()
         }
 

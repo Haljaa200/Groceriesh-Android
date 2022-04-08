@@ -121,7 +121,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
       style="@style/NormalButton"
-      android:id="@+id/btnRegister"
+      android:id="@+id/btnEditProfile"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
@@ -129,7 +129,7 @@
       android:layout_marginBottom="@dimen/dm10"
       android:layout_marginStart="@dimen/dm20"
       android:layout_marginEnd="@dimen/dm20"
-      android:text="@string/register"
+      android:text="@string/edit_profile"
       tools:ignore="RtlHardcoded" />
 
   </LinearLayout>

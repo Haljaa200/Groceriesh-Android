@@ -104,6 +104,9 @@
     android:label="CheckoutFragment">
 
     <argument android:name="order" app:argType="com.haljaa200.groceriesh.models.Order" />
+    <action
+      android:id="@+id/action_checkoutFragment_to_orderDetailFragment"
+      app:destination="@id/orderDetailFragment" />
 
   </fragment>
 

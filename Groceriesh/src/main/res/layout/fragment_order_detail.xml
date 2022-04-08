@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <include
+      android:id="@+id/toolbar"
+      layout="@layout/toolbar"
+      app:title="@{@string/order_detail}" />
+
+    <org.osmdroid.views.MapView
+      android:id="@+id/map"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/dm180" />
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/dm10"
+      android:background="@color/backgroundSecondary"
+      android:orientation="vertical">
+
+      <TextView
+        style="@style/HeaderText"
+        android:id="@+id/tvTotal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/titleColor"
+        android:layout_marginBottom="@dimen/dm6"
+        tools:text="Total: 0" />
+
+      <TextView
+        style="@style/RegularText"
+        android:id="@+id/tvAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        app:drawableStartCompat="@drawable/ic_location"
+        android:drawablePadding="@dimen/dm6"
+        tools:text="Delivery Time: test" />
+
+      <TextView
+        style="@style/RegularText"
+        android:id="@+id/tvDeliveryTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        app:drawableStartCompat="@drawable/ic_delivery_time"
+        app:drawableTint="@color/textColorLow"
+        android:drawablePadding="@dimen/dm6"
+        tools:text="Delivery Time: test" />
+
+      <TextView
+        style="@style/RegularText"
+        android:id="@+id/tvDeliveredAt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        app:drawableStartCompat="@drawable/ic_delivered_time"
+        app:drawableTint="@color/textColorLow"
+        android:drawablePadding="@dimen/dm6"
+        tools:text="Delivered At: test" />
+
+      <TextView
+        style="@style/RegularText"
+        android:id="@+id/tvNotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        app:drawableStartCompat="@drawable/ic_notes"
+        app:drawableTint="@color/textColorLow"
+        android:drawablePadding="@dimen/dm6"
+        android:layout_marginTop="@dimen/dm6"
+        tools:text="Notes: test" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rvBasket"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      tools:listitem="@layout/rv_item_basket" />
+
+  </LinearLayout>
+</layout>

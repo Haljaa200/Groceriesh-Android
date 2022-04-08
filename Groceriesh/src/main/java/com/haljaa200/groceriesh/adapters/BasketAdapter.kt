@@ -2,6 +2,7 @@ package com.haljaa200.groceriesh.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -11,7 +12,7 @@ import com.haljaa200.groceriesh.R
 import com.haljaa200.groceriesh.databinding.RvItemBasketBinding
 import com.haljaa200.groceriesh.models.OrderItem
 
-class BasketAdapter(val glide: RequestManager) : RecyclerView.Adapter<BasketAdapter.ViewHolder>() {
+class BasketAdapter(val glide: RequestManager, val showPlusMinus: Boolean = true) : RecyclerView.Adapter<BasketAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: RvItemBasketBinding): RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
@@ -26,8 +27,13 @@ class BasketAdapter(val glide: RequestManager) : RecyclerView.Adapter<BasketAdap
                 binding.tvUnit.text = orderItem.unit
                 binding.tvCount.text = orderItem.quantity.toString()
 
-                this.ivItem.setOnClickListener {
-                    onClickListener?.let { it(orderItem) }
+                if (showPlusMinus) {
+                    this.ivPlus.visibility = View.VISIBLE
+                    this.ivMinus.visibility = View.VISIBLE
+
+                } else {
+                    this.ivPlus.visibility = View.GONE
+                    this.ivMinus.visibility = View.GONE
                 }
 
                 this.ivPlus.setOnClickListener {
@@ -63,11 +69,6 @@ class BasketAdapter(val glide: RequestManager) : RecyclerView.Adapter<BasketAdap
 
     override fun getItemCount(): Int {
         return differ.currentList.size
-    }
-
-    private var onClickListener: ((OrderItem) -> Unit)? = null
-    fun setOnClickListener(listener: ((OrderItem) -> Unit)) {
-        onClickListener = listener
     }
 
     private var onPlusClickListener: ((OrderItem) -> Unit)? = null

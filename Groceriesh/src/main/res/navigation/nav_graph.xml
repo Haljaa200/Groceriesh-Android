@@ -22,7 +22,11 @@
   <fragment
     android:id="@+id/ordersFragment"
     android:name="com.haljaa200.groceriesh.ui.fragments.OrdersFragment"
-    android:label="OrdersFragment" />
+    android:label="OrdersFragment" >
+    <action
+      android:id="@+id/action_ordersFragment_to_orderDetailFragment"
+      app:destination="@id/orderDetailFragment" />
+  </fragment>
 
   <fragment
     android:id="@+id/basketFragment"
@@ -100,6 +104,15 @@
     android:label="CheckoutFragment">
 
     <argument android:name="order" app:argType="com.haljaa200.groceriesh.models.Order" />
+
+  </fragment>
+
+  <fragment
+    android:id="@+id/orderDetailFragment"
+    android:name="com.haljaa200.groceriesh.ui.fragments.OrderDetailFragment"
+    android:label="OrderDetailFragment">
+
+    <argument android:name="orderId" app:argType="string" />
 
   </fragment>
 </navigation>

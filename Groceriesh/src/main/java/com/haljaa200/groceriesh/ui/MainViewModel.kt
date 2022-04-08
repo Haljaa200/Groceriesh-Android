@@ -70,7 +70,9 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
     val categoriesResponse: MutableLiveData<Resource<Categories>> = MutableLiveData()
     val itemsResponse: MutableLiveData<Resource<Items>> = MutableLiveData()
     val vendorsResponse: MutableLiveData<Resource<Vendors>> = MutableLiveData()
-    val submitOrderResponse: MutableLiveData<Resource<OrderResponse>> = MutableLiveData()
+    val submitOrderResponse: MutableLiveData<Resource<SubmitOrderResponse>> = MutableLiveData()
+    val ordersResponse: MutableLiveData<Resource<OrdersResponse>> = MutableLiveData()
+    val singleOrderResponse: MutableLiveData<Resource<SingleOrderResponse>> = MutableLiveData()
 
     fun login(loginData: Login) = viewModelScope.launch {
         loginResponse.postValue(Resource.Loading())
@@ -232,6 +234,42 @@ open class MainViewModel @Inject constructor(app: Application, private val retro
             when(t) {
                 is IOException -> submitOrderResponse.postValue(Resource.Error(context.getString(R.string.check_your_internet)))
                 else -> submitOrderResponse.postValue(Resource.Error(context.getString(R.string.connectionError)))
+            }
+        }
+    }
+
+    fun getOrders() = viewModelScope.launch {
+        ordersResponse.postValue(Resource.Loading())
+
+        try {
+            if(hasInternetConnection()) {
+                val response = RetrofitInstance(retrofit).api.getOrders(token)
+                ordersResponse.postValue(handleRetrofitResponse(response))
+            } else {
+                ordersResponse.postValue(Resource.Error(context.getString(R.string.no_internet)))
+            }
+        } catch(t: Throwable) {
+            when(t) {
+                is IOException -> ordersResponse.postValue(Resource.Error(context.getString(R.string.check_your_internet)))
+                else -> ordersResponse.postValue(Resource.Error(context.getString(R.string.connectionError)))
+            }
+        }
+    }
+
+    fun getOrder(orderId: String) = viewModelScope.launch {
+        singleOrderResponse.postValue(Resource.Loading())
+
+        try {
+            if(hasInternetConnection()) {
+                val response = RetrofitInstance(retrofit).api.getOrder(token, orderId)
+                singleOrderResponse.postValue(handleRetrofitResponse(response))
+            } else {
+                singleOrderResponse.postValue(Resource.Error(context.getString(R.string.no_internet)))
+            }
+        } catch(t: Throwable) {
+            when(t) {
+                is IOException -> singleOrderResponse.postValue(Resource.Error(context.getString(R.string.check_your_internet)))
+                else -> singleOrderResponse.postValue(Resource.Error(context.getString(R.string.connectionError)))
             }
         }
     }

@@ -29,10 +29,8 @@ open class BaseFragment : Fragment() {
     }
 
     fun setupToolbar(toolbar: ToolbarBinding, showBackButton: Boolean) {
-        if (showBackButton)
-            toolbar.ivBack.visibility = View.VISIBLE
-        else
-            toolbar.ivBack.visibility = View.GONE
+        if (showBackButton) toolbar.ivBack.visibility = View.VISIBLE
+        else toolbar.ivBack.visibility = View.GONE
 
         toolbar.ivBack.setOnClickListener {
             findNavController().navigateUp()

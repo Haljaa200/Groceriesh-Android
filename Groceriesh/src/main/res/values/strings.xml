@@ -57,4 +57,10 @@
   <string name="leave_the_order_at_door">Please Leave the order at my door.</string>
   <string name="order_and_pay">Order and Pay</string>
   <string name="checkout">Checkout</string>
+  <string name="order_detail">Order Detail</string>
+  <string name="notes_placeholder">Notes: $NOTES</string>
+  <string name="delivery_time_placeholder">Delivery Time: $TIME</string>
+  <string name="delivered_time_placeholder">Delivered At: $TIME</string>
+  <string name="not_delivered">Not Delivered</string>
+  <string name="delivered">Delivered</string>
 </resources>

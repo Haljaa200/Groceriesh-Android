@@ -36,7 +36,6 @@
             android:id="@+id/ivBack"
             android:layout_width="@dimen/dm36"
             android:layout_height="@dimen/dm36"
-            android:layout_marginEnd="@dimen/dm10"
             android:padding="@dimen/dm6"
             app:tint="@color/white"
             android:layout_gravity="center_vertical"
@@ -49,12 +48,14 @@
             android:layout_gravity="center"
             android:gravity="start"
             android:paddingEnd="@dimen/dm12"
+            android:layout_marginStart="@dimen/dm10"
             android:layout_weight="1"
             android:ellipsize="end"
             android:lines="1"
             android:text="@{title}"
             tools:text="Title"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            tools:ignore="RtlSymmetry" />
 
         </LinearLayout>
       </FrameLayout>

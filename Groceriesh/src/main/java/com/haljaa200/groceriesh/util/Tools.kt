@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentActivity
 import com.haljaa200.groceriesh.R
 import retrofit2.Response
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
 
@@ -183,4 +184,8 @@ object Tools {
         return bitmap
     }
 
+    fun getFormatTimeWithTZ(date: Date): String? {
+        val timeZoneDate = SimpleDateFormat("EEE, dd-MM-yyyy  hh:mm a", Locale.getDefault())
+        return timeZoneDate.format(date)
+    }
 }

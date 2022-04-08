@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <LinearLayout
+    android:id="@+id/item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_background_rectangle_selectable"
+    android:orientation="vertical">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="@dimen/dm10"
+      android:orientation="horizontal">
+
+      <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+          style="@style/RegularText"
+          android:id="@+id/tvDelivered"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="center_vertical"
+          android:drawablePadding="@dimen/dm6"
+          tools:text="Name" />
+
+        <TextView
+          style="@style/RegularLowText"
+          android:id="@+id/tvDeliveryAddress"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/dm6"
+          tools:text="1 Bag" />
+
+        <TextView
+          style="@style/LittleText"
+          android:id="@+id/tvItems"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/dm6"
+          android:ellipsize="end"
+          android:paddingEnd="@dimen/dm40"
+          android:maxLines="1"
+          tools:text="1 Bag"
+          tools:ignore="RtlSymmetry" />
+      </LinearLayout>
+
+      <TextView
+        style="@style/RegularBoldText"
+        android:id="@+id/tvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/titleColor"
+        android:layout_gravity="center_vertical"
+        android:maxLines="1"
+        tools:text="Price" />
+
+    </LinearLayout>
+
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/dm1"
+      android:background="@color/cardBackgroundText" />
+
+  </LinearLayout>
+</layout>

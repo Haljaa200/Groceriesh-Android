@@ -23,6 +23,7 @@
         android:layout_width="@dimen/dm80"
         android:layout_height="@dimen/dm80"
         android:padding="@dimen/dm18"
+        android:clickable="false"
         android:src="@drawable/ic_payment" />
 
       <LinearLayout

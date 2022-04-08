@@ -29,7 +29,12 @@ interface GrocerieshAPI {
     @GET("customer/vendors")
     suspend fun getVendors(@Header("x-auth-token") token: String): Response<Vendors>
 
-
     @POST("customer/order")
-    suspend fun submitOrder(@Header("x-auth-token") token: String, @Body data: Order): Response<OrderResponse>
+    suspend fun submitOrder(@Header("x-auth-token") token: String, @Body data: Order): Response<SubmitOrderResponse>
+
+    @GET("customer/orders")
+    suspend fun getOrders(@Header("x-auth-token") token: String): Response<OrdersResponse>
+
+    @GET("customer/orders/{order_id}")
+    suspend fun getOrder(@Header("x-auth-token") token: String, @Path("order_id") orderId: String): Response<SingleOrderResponse>
 }

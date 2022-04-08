@@ -52,7 +52,7 @@ class OrdersFragment: BaseFragment() {
                 is Resource.Success -> {
                     response.data?.let {
                         if (it.success) {
-                            rvOrdersAdapter.differ.submitList(it.data.orders)
+                            rvOrdersAdapter.differ.submitList(it.data.orders.reversed())
                         }
                     }
                 }

@@ -11,7 +11,7 @@ data class Order(
     val delivery_latitude: Double,
     val delivery_longitude: Double,
     val delivery_time: Long,
-    val delivery_time_planned: Long,
+    var delivery_time_planned: Long,
     val items: List<DefaultOrderItem>,
     var notes: String,
     val total_price: Double

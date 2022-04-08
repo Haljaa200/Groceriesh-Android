@@ -49,6 +49,17 @@
         android:textColor="@color/textColor"
         android:text="@string/leave_the_order_at_door" />
 
+      <TextView
+        style="@style/NormalBorderedRectangleButton"
+        android:id="@+id/tvDeliveryTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/mainColor"
+        android:textColor="@color/textColor"
+        android:padding="@dimen/dm10"
+        android:layout_marginTop="@dimen/dm10"
+        android:text="@string/choose_delivery_time" />
+
     </LinearLayout>
 
     <LinearLayout

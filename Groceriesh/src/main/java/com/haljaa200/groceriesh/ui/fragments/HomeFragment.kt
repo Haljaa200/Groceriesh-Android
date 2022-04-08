@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.contains
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.chip.Chip
@@ -30,6 +29,7 @@ import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.Marker.ANCHOR_BOTTOM
 import org.osmdroid.views.overlay.Marker.ANCHOR_CENTER
+import java.lang.Exception
 
 class HomeFragment: BaseFragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -87,6 +87,7 @@ class HomeFragment: BaseFragment() {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun showMap() {
+        binding.map.visibility = View.VISIBLE
         val ctx = requireContext()
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx))
         Configuration.getInstance().userAgentValue = BuildConfig.APPLICATION_ID
@@ -96,9 +97,11 @@ class HomeFragment: BaseFragment() {
         binding.map.setBuiltInZoomControls(false)
         val mapController: IMapController = binding.map.controller
         mapController.setZoom(17)
-        val defaultPoint = GeoPoint(viewModel.getString(Constants.USER_LATITUDE).toDouble(),viewModel.getString(Constants.USER_LONGITUDE).toDouble())
-        mapController.setCenter(defaultPoint)
-        addMyMarker()
+        try {
+            val defaultPoint = GeoPoint(viewModel.getString(Constants.USER_LATITUDE).toDouble(),viewModel.getString(Constants.USER_LONGITUDE).toDouble())
+            mapController.setCenter(defaultPoint)
+            addMyMarker()
+        } catch (e: Exception) {}
     }
 
     private fun addMyMarker() {

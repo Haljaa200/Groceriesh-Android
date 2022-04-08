@@ -63,4 +63,6 @@
   <string name="delivered_time_placeholder">Delivered At: $TIME</string>
   <string name="not_delivered">Not Delivered</string>
   <string name="delivered">Delivered</string>
+  <string name="choose_delivery_time">Choose delivery time</string>
+  <string name="please_choose_delivery_time">Please choose your prefered delivery time</string>
 </resources>

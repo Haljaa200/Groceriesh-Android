@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import com.haljaa200.groceriesh.R
 import com.haljaa200.groceriesh.databinding.FragmentCheckoutBinding
 import com.haljaa200.groceriesh.util.Resource
@@ -36,8 +38,55 @@ class CheckoutFragment: BaseFragment() {
             val hour = calendar.get(Calendar.HOUR_OF_DAY)
             val minute = calendar.get(Calendar.MINUTE)
 
-            val timePicker = TimePickerDialog(requireContext(), timePickerDialogListener, hour, minute, false)
-            timePicker.show()
+            val picker =
+                MaterialTimePicker.Builder()
+                    .setTimeFormat(TimeFormat.CLOCK_12H)
+                    .setHour(hour)
+                    .setMinute(minute)
+                    .setTitleText("Select Delivery time")
+                    .build()
+
+            picker.addOnPositiveButtonClickListener {
+
+                val formattedTime: String = when {
+                    picker.hour == 0 -> {
+                        if (picker.minute < 10) {
+                            "${picker.hour + 12}:0${picker.minute} am"
+                        } else {
+                            "${picker.hour + 12}:${picker.minute} am"
+                        }
+                    }
+                    picker.hour > 12 -> {
+                        if (picker.minute < 10) {
+                            "${picker.hour - 12}:0${picker.minute} pm"
+                        } else {
+                            "${picker.hour - 12}:${picker.minute} pm"
+                        }
+                    }
+                    picker.hour == 12 -> {
+                        if (picker.minute < 10) {
+                            "${picker.hour}:0${picker.minute} pm"
+                        } else {
+                            "${picker.hour}:${picker.minute} pm"
+                        }
+                    }
+                    else -> {
+                        if (picker.minute < 10) {
+                            "${picker.hour}:${picker.minute} am"
+                        } else {
+                            "${picker.hour}:${picker.minute} am"
+                        }
+                    }
+                }
+
+                binding.tvDeliveryTime.text = formattedTime
+                val calendar = Calendar.getInstance()
+                calendar.set(Calendar.HOUR_OF_DAY, picker.hour)
+                calendar.set(Calendar.MINUTE, picker.minute)
+                args.order.delivery_time_planned = calendar.timeInMillis
+            }
+
+            picker.show(parentFragmentManager, "TIME_PICKER")
         }
 
         return layout
@@ -98,46 +147,6 @@ class CheckoutFragment: BaseFragment() {
             }
         }
     }
-
-    private val timePickerDialogListener: TimePickerDialog.OnTimeSetListener =
-        TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-            val formattedTime: String = when {
-                hourOfDay == 0 -> {
-                    if (minute < 10) {
-                        "${hourOfDay + 12}:0${minute} am"
-                    } else {
-                        "${hourOfDay + 12}:${minute} am"
-                    }
-                }
-                hourOfDay > 12 -> {
-                    if (minute < 10) {
-                        "${hourOfDay - 12}:0${minute} pm"
-                    } else {
-                        "${hourOfDay - 12}:${minute} pm"
-                    }
-                }
-                hourOfDay == 12 -> {
-                    if (minute < 10) {
-                        "${hourOfDay}:0${minute} pm"
-                    } else {
-                        "${hourOfDay}:${minute} pm"
-                    }
-                }
-                else -> {
-                    if (minute < 10) {
-                        "${hourOfDay}:${minute} am"
-                    } else {
-                        "${hourOfDay}:${minute} am"
-                    }
-                }
-            }
-
-            binding.tvDeliveryTime.text = formattedTime
-            val calendar = Calendar.getInstance()
-            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
-            calendar.set(Calendar.MINUTE, minute)
-            args.order.delivery_time_planned = calendar.timeInMillis
-        }
 
     override fun onDestroyView() {
         super.onDestroyView()

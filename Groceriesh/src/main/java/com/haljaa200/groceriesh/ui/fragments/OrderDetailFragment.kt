@@ -111,15 +111,15 @@ class OrderDetailFragment: BaseFragment() {
         val order = orderResponse.data.order
         addMyMarker(order.delivery_latitude, order.delivery_longitude)
         binding.tvDeliveryTime.text = getString(R.string.delivery_time_placeholder).replace("\$TIME", Tools.getFormatTimeWithTZ(Date(order.delivery_time_planned)).toString())
-        if (order.delivery_time == 0L) {
-            binding.tvDeliveredAt.text = getString(R.string.delivered_time_placeholder).replace("\$TIME", "-")
+        if (order.delivered) {
+            binding.tvDeliveredAt.text = getString(R.string.delivered)
         } else {
-            binding.tvDeliveredAt.text = getString(R.string.delivered_time_placeholder).replace("\$TIME", Tools.getFormatTimeWithTZ(Date(order.delivery_time)).toString())
+            binding.tvDeliveredAt.text = getString(R.string.not_delivered)
         }
 
         binding.tvNotes.text = getString(R.string.notes_placeholder).replace("\$NOTES", order.notes)
         val items = mutableListOf<OrderItem>()
-        order.items.forEach { items.add(OrderItem(null, it._id, it.name, it.photo.toString().replace("null", ""), it.price, it.quantity, it.unit)) }
+        order.items.forEach { items.add(OrderItem(null, it._id, order.vendor_id, it.name, it.photo.toString().replace("null", ""), it.price, it.quantity, it.unit)) }
         rvBasketAdapter.differ.submitList(items)
 
         binding.tvTotal.text = "${getString(R.string.total)}: ${order.total_price}${resources.getString(R.string.priceUnit)}"

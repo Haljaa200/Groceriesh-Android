@@ -43,7 +43,7 @@ class ItemDetailDialogFragment: BaseBottomSheetDialogFragment() {
         binding.btnAddToBasket.setOnClickListener {
             count += 1
             binding.tvCount.text = count.toString()
-            viewModel.saveOrderItem(OrderItem(null, args.item._id, args.item.name, args.item.photo.toString(), args.item.price, count, args.item.unit))
+            viewModel.saveOrderItem(OrderItem(null, args.item._id, args.item.vendor_id, args.item.name, args.item.photo.toString(), args.item.price, count, args.item.unit))
 
             it.visibility = View.GONE
             binding.countLayout.visibility = View.VISIBLE

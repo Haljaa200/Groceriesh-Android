@@ -30,5 +30,4 @@ interface BasketDao {
 
     @Query("DELETE FROM orderItems WHERE _id = :id")
     suspend fun deleteOrderItem(id: String)
-
 }

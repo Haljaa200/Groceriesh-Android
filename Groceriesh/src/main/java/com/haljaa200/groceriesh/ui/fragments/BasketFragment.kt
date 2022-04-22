@@ -19,7 +19,7 @@ class BasketFragment: BaseFragment() {
     private var _binding: FragmentBasketBinding? = null
     private val binding get() = _binding!!
     private lateinit var rvBasketAdapter: BasketAdapter
-
+    private var vendorId = ""
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -80,14 +80,16 @@ class BasketFragment: BaseFragment() {
         binding.btnContinue.setOnClickListener {
             val items = mutableListOf<DefaultOrderItem>()
             rvBasketAdapter.differ.currentList.forEach {
+                vendorId = it.vendor_id
                 items.add(DefaultOrderItem(it.name, it.price, it.quantity, it.unit))
             }
             val order = Order(
+                vendor_id = vendorId,
                 customer_id = viewModel.getString(Constants.USER_ID),
                 delivery_address = viewModel.getString(Constants.USER_DELIVERY_ADDRESS),
                 delivery_latitude = viewModel.getString(Constants.USER_LATITUDE).toDouble(),
                 delivery_longitude = viewModel.getString(Constants.USER_LONGITUDE).toDouble(),
-                delivery_time = 0,
+                delivered = false,
                 delivery_time_planned = 0,
                 items = items,
                 notes = "",

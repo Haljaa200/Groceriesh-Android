@@ -6,11 +6,12 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 data class Order(
+    val vendor_id: String,
     val customer_id: String,
     val delivery_address: String,
     val delivery_latitude: Double,
     val delivery_longitude: Double,
-    val delivery_time: Long,
+    val delivered: Boolean,
     var delivery_time_planned: Long,
     val items: List<DefaultOrderItem>,
     var notes: String,
@@ -31,6 +32,7 @@ data class DefaultOrderItem(
 data class OrderItem(
     @PrimaryKey(autoGenerate = true) val id: Int?,
     val _id: String,
+    val vendor_id: String,
     val name: String,
     val photo: String,
     val price: Double,

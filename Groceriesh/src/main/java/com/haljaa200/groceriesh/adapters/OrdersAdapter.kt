@@ -20,7 +20,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.ViewHolder>() {
             with(binding) {
                 val context = binding.item.context
 
-                if (order.delivery_time == 0L) {
+                if (!order.delivered) {
                     binding.tvDelivered.text = context.getString(R.string.not_delivered)
                     binding.tvDelivered.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_cross, 0, 0, 0)
                 } else {

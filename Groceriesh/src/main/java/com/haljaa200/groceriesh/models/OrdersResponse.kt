@@ -12,11 +12,12 @@ data class OrdersResponseData(
 data class OrdersResponseObject(
     val __v: Int,
     val _id: String,
+    val vendor_id: String,
     val customer_id: String,
     val delivery_address: String,
     val delivery_latitude: Double,
     val delivery_longitude: Double,
-    val delivery_time: Long,
+    val delivered: Boolean,
     val delivery_time_planned: Long,
     val items: List<OrdersResponseItem>,
     val notes: String,
